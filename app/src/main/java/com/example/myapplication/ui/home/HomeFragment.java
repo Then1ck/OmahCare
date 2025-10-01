@@ -36,12 +36,12 @@ public class HomeFragment extends Fragment {
 
         // Prepare sample product data
         List<Product> products = new ArrayList<>();
-        products.add(new Product("Tongkat jalan", "Rp 128.000", "Rp 200.000", "33%", R.drawable.img));
-        products.add(new Product("Tensiometer", "Rp 612.000", "Rp 700.000", "12%", R.drawable.img));
-        products.add(new Product("Kursi roda", "Rp 2.300.000", "Rp 2.800.000", "18%", R.drawable.img));
-        products.add(new Product("Masker medis", "Rp 50.000", "Rp 75.000", "33%", R.drawable.img));
-        products.add(new Product("Kursi roda", "Rp 2.300.000", "Rp 2.800.000", "18%", R.drawable.img));
-        products.add(new Product("Masker medis", "Rp 50.000", "Rp 75.000", "33%", R.drawable.img));
+        products.add(new Product("Tongkat jalan", "Rp 128.000", "Rp 200.000", "33%", R.drawable.ic_caregiver));
+        products.add(new Product("Tensiometer", "Rp 612.000", "Rp 700.000", "12%", R.drawable.ic_caregiver));
+        products.add(new Product("Kursi roda", "Rp 2.300.000", "Rp 2.800.000", "18%", R.drawable.ic_caregiver));
+        products.add(new Product("Masker medis", "Rp 50.000", "Rp 75.000", "33%", R.drawable.ic_caregiver));
+        products.add(new Product("Kursi roda", "Rp 2.300.000", "Rp 2.800.000", "18%", R.drawable.ic_caregiver));
+        products.add(new Product("Masker medis", "Rp 50.000", "Rp 75.000", "33%", R.drawable.ic_caregiver));
 
         // Attach adapter
         productAdapter = new ProductAdapter(products);
