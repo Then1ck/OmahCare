@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:weightSum="4"
+    android:columnCount="4"
+    android:useDefaultMargins="true"
+    android:alignmentMode="alignMargins"
     android:padding="16dp">
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_columnWeight="1"
         android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:background="@drawable/bg_rounded"
+        android:layout_margin="4dp"
+        android:padding="12dp">
 
         <ImageView
             android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/img"
-            android:padding="12dp"/>
-<!--        android:background="@drawable/bg_circle"-->
+            android:layout_height="40dp"
+            android:src="@drawable/img"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -26,8 +29,76 @@
             android:text="Caregiver"
             android:textSize="12sp"
             android:layout_marginTop="4dp"/>
-<!--        android:fontFamily="@font/poppins_medium"-->
     </LinearLayout>
 
-    <!-- Repeat the same block for Home Care, OmahMart, OmahRide -->
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/bg_rounded"
+        android:layout_margin="4dp"
+        android:padding="12dp">
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="40dp"
+            android:src="@drawable/img"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Caregiver"
+            android:textSize="12sp"
+            android:layout_marginTop="4dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/bg_rounded"
+        android:layout_margin="4dp"
+        android:padding="12dp">
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="40dp"
+            android:src="@drawable/img"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Caregiver"
+            android:textSize="12sp"
+            android:layout_marginTop="4dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/bg_rounded"
+        android:layout_margin="4dp"
+        android:padding="12dp">
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="40dp"
+            android:src="@drawable/img"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Caregiver"
+            android:textSize="12sp"
+            android:layout_marginTop="4dp"/>
+    </LinearLayout>
+    <!-- Repeat for Home Care, OmahMart, OmahRide -->
+
+</GridLayout>
