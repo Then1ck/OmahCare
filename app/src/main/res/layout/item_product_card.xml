@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="160dp"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="7dp"
+    app:cardElevation="4dp"
+    android:layout_margin="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/product_image"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:scaleType="centerCrop"/>
+<!--        android:background="@drawable/rounded_top_corners"-->
+
+        <TextView
+            android:id="@+id/product_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tongkat jalan"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_margin="8dp"/>
+
+        <TextView
+            android:id="@+id/product_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rp 128.000"
+            android:textColor="#5e89e5"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_marginStart="8dp"/>
+
+        <TextView
+            android:id="@+id/product_old_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rp 200.000"
+            android:textSize="10sp"
+            android:layout_marginStart="8dp"
+            android:alpha="0.5"/>
+
+        <TextView
+            android:id="@+id/product_discount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="33%"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:padding="4dp"
+            android:layout_margin="8dp"/>
+<!--        android:background="@drawable/bg_discount_tag"-->
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
