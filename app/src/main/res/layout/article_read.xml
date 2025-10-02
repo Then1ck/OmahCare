@@ -55,7 +55,7 @@
             <ImageView
                 android:id="@+id/articleBanner"
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
+                android:layout_height="240dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/article_1" />
 
@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:padding="16dp"
                 android:text="Hidup bahagia bersama lansia-mu. Mari olahraga!"
-                android:textSize="20sp"
+                android:textSize="24dp"
                 android:textStyle="bold"
                 android:textColor="@android:color/black" />
 
@@ -106,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:padding="16dp"
                 android:textColor="#838282"
-                android:textSize="14sp"
+                android:textSize="18sp"
                 android:lineSpacingExtra="4dp"
                 android:text="Sorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus." />
         </LinearLayout>
