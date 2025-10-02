@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 
 import java.util.List;
@@ -31,11 +32,18 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = productList.get(position);
+
         holder.title.setText(product.getName());
         holder.price.setText(product.getPrice());
         holder.oldPrice.setText(product.getOldPrice());
         holder.discount.setText(product.getDiscount());
-        holder.image.setImageResource(product.getImageResId());
+
+        // ✅ Load image from URL using Glide
+        Glide.with(holder.itemView.getContext())
+                .load(product.getImageUrl())
+                .placeholder(R.drawable.ic_caregiver) // fallback while loading
+                .error(R.drawable.ic_dashboard_black_24dp) // fallback if failed
+                .into(holder.image);
     }
 
     @Override

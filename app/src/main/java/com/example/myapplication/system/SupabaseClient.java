@@ -20,7 +20,7 @@ public class SupabaseClient {
         String supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp3YnNhZG91ZWFxdHRna2Z5d2ltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkzNzE2NTgsImV4cCI6MjA3NDk0NzY1OH0.QLB0crIjaueAnD9P2QggL3RT_Ag58hljNJ7JDvhpQJ4";
 
         // 🔹 Use your bucket name (create one if not already created in Supabase Storage)
-        String bucketName = "banner";
+        String bucketName = "shop";
 
         // Build the upload URL
         String uploadUrl = supabaseUrl + "/storage/v1/object/" + bucketName + "/" + uploadPath;

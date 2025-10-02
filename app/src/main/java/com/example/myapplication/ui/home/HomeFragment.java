@@ -1,6 +1,8 @@
 package com.example.myapplication.ui.home;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -76,17 +78,80 @@ public class HomeFragment extends Fragment {
         recyclerView = root.findViewById(R.id.recycler_recommendations);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
-        List<Product> products = new ArrayList<>();
-        products.add(new Product("Tongkat jalan", "Rp 128.000", "Rp 200.000", "33%", R.drawable.ic_caregiver));
-        products.add(new Product("Tensiometer", "Rp 612.000", "Rp 700.000", "12%", R.drawable.ic_caregiver));
-        products.add(new Product("Kursi roda", "Rp 2.300.000", "Rp 2.800.000", "18%", R.drawable.ic_caregiver));
-        products.add(new Product("Masker medis", "Rp 50.000", "Rp 75.000", "33%", R.drawable.ic_caregiver));
+        this.loadProductsFromFirebase();
+//        List<Product> products = new ArrayList<>();
+//        products.add(new Product("Tongkat jalan", "Rp 128.000", "Rp 200.000", "33%", R.drawable.ic_caregiver));
+//        products.add(new Product("Tensiometer", "Rp 612.000", "Rp 700.000", "12%", R.drawable.ic_caregiver));
+//        products.add(new Product("Kursi roda", "Rp 2.300.000", "Rp 2.800.000", "18%", R.drawable.ic_caregiver));
+//        products.add(new Product("Masker medis", "Rp 50.000", "Rp 75.000", "33%", R.drawable.ic_caregiver));
+//
+//        productAdapter = new ProductAdapter(products);
+//        recyclerView.setAdapter(productAdapter);
 
-        productAdapter = new ProductAdapter(products);
-        recyclerView.setAdapter(productAdapter);
+//        uploadBannerDrawable();
 
         return root;
     }
+
+    private void uploadBannerDrawable() {
+        // 1. Get bitmap from drawable
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.susu_kalsium);
+
+        // 2. Save bitmap into a temporary file (PNG)
+        File tempFile = new File(requireContext().getCacheDir(), "susu_kalsium.png");
+        try {
+            FileOutputStream outputStream = new FileOutputStream(tempFile);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+            outputStream.flush();
+            outputStream.close();
+
+            // 3. Define path inside Supabase bucket
+            String uploadPath = "item/susu_kalsium.png";
+
+            // 4. Upload in background
+            new Thread(() -> {
+                try {
+                    String supabaseUrl = SupabaseClient.uploadImage(
+                            requireContext(),
+                            tempFile,
+                            uploadPath
+                    );
+
+                    requireActivity().runOnUiThread(() -> {
+                        Log.d("ItemUpload", "Item URL: " + supabaseUrl);
+                        saveBannerToFirebase("item_6", "Susu Kalsium", supabaseUrl);
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    requireActivity().runOnUiThread(() ->
+                            Toast.makeText(getContext(), "Upload failed: " + e.getMessage(), Toast.LENGTH_LONG).show()
+                    );
+                }
+            }).start();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void saveBannerToFirebase(String id, String placeholder, String imgUrl) {
+        DatabaseReference bannerRef = FirebaseDatabase.getInstance().getReference("shop");
+
+        Map<String, Object> bannerData = new HashMap<>();
+        bannerData.put("name", placeholder);
+        bannerData.put("img", imgUrl);
+        bannerData.put("price", 780000);
+        bannerData.put("rating", 4.9);
+
+        bannerRef.child(id).setValue(bannerData)
+                .addOnSuccessListener(unused ->
+                        Toast.makeText(getContext(), "Item saved to Firebase!", Toast.LENGTH_SHORT).show()
+                )
+                .addOnFailureListener(error ->
+                        Toast.makeText(getContext(), "Failed: " + error.getMessage(), Toast.LENGTH_LONG).show()
+                );
+    }
+
 
     private void loadBannersFromFirebase() {
         DatabaseReference bannersRef = FirebaseDatabase.getInstance().getReference("banners");
@@ -162,6 +227,42 @@ public class HomeFragment extends Fragment {
             e.printStackTrace();
         }
     }
+
+    private void loadProductsFromFirebase() {
+        DatabaseReference shopRef = FirebaseDatabase.getInstance().getReference("shop");
+        shopRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<Product> products = new ArrayList<>();
+                for (DataSnapshot itemSnapshot : snapshot.getChildren()) {
+                    String name = itemSnapshot.child("name").getValue(String.class);
+                    Long priceLong = itemSnapshot.child("price").getValue(Long.class);
+                    Double ratingDouble = itemSnapshot.child("rating").getValue(Double.class);
+                    Double discDouble = itemSnapshot.child("disc").getValue(Double.class);
+                    String imgUrl = itemSnapshot.child("img").getValue(String.class);
+
+                    Double DiscPrice = discDouble != null?priceLong - (priceLong * discDouble) : priceLong;
+
+                    String priceStr = priceLong != null ? "Rp " + String.format("%,d", priceLong) : "Rp -";
+                    String discountStr = discDouble != null ? String.format("%d%%", (int)(discDouble * 100)) : null;
+                    float rating = ratingDouble != null ? ratingDouble.floatValue() : 0f;
+                    String discPrice = DiscPrice != null ? "Rp " + String.format("%,.0f", DiscPrice) : "Rp -";
+
+                    products.add(new Product(name, priceStr, discPrice, discountStr, imgUrl, rating));
+                }
+
+                // Set up adapter
+                productAdapter = new ProductAdapter(products);
+                recyclerView.setAdapter(productAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Failed to load products: " + error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
 
 }
 
