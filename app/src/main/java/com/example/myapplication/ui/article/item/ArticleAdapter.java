@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 
 import java.util.List;
@@ -32,11 +33,22 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
     @Override
     public void onBindViewHolder(@NonNull ArticleViewHolder holder, int position) {
         Article article = articleList.get(position);
+
         holder.title.setText(article.getTitle());
-        holder.subtitle.setText(article.getSubtitle());
+        holder.subtitle.setText(article.getSubtext());
         holder.authorName.setText(article.getAuthor());
         holder.date.setText(article.getDate());
-        // You can load images into articleImage and authorAvatar with Glide/Picasso
+
+        Glide.with(holder.itemView.getContext())
+                .load(article.getImg())
+                .placeholder(R.drawable.ic_caregiver)
+                .into(holder.articleImage);
+
+        Glide.with(holder.itemView.getContext())
+                .load(article.getPfp())
+                .placeholder(R.drawable.ic_caregiver)
+                .circleCrop()
+                .into(holder.authorAvatar);
     }
 
     @Override

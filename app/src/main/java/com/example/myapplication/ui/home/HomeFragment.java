@@ -1,6 +1,5 @@
 package com.example.myapplication.ui.home;
 
-import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -27,7 +26,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -88,25 +86,34 @@ public class HomeFragment extends Fragment {
 //        productAdapter = new ProductAdapter(products);
 //        recyclerView.setAdapter(productAdapter);
 
-//        uploadBannerDrawable();
+        uploadBannerDrawable();
 
         return root;
     }
 
     private void uploadBannerDrawable() {
         // 1. Get bitmap from drawable
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.susu_kalsium);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.article_2);
+        Bitmap pfp = BitmapFactory.decodeResource(getResources(), R.drawable.pfp_2);
 
         // 2. Save bitmap into a temporary file (PNG)
-        File tempFile = new File(requireContext().getCacheDir(), "susu_kalsium.png");
+        File tempFile = new File(requireContext().getCacheDir(), "article_2.png");
+        File tempPfp = new File(requireContext().getCacheDir(), "pfp_2.png");
+
         try {
             FileOutputStream outputStream = new FileOutputStream(tempFile);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
             outputStream.flush();
             outputStream.close();
 
+            FileOutputStream outputPfp = new FileOutputStream(tempPfp);
+            pfp.compress(Bitmap.CompressFormat.PNG, 100, outputPfp);
+            outputPfp.flush();
+            outputPfp.close();
+
             // 3. Define path inside Supabase bucket
-            String uploadPath = "item/susu_kalsium.png";
+            String uploadPath = "thumbnail/article_2.png";
+            String uploadPfp = "profile/pfp_2.png";
 
             // 4. Upload in background
             new Thread(() -> {
@@ -117,9 +124,15 @@ public class HomeFragment extends Fragment {
                             uploadPath
                     );
 
+                    String supabaseUrlPfp = SupabaseClient.uploadImage(
+                            requireContext(),
+                            tempPfp,
+                            uploadPfp
+                    );
+
                     requireActivity().runOnUiThread(() -> {
-                        Log.d("ItemUpload", "Item URL: " + supabaseUrl);
-                        saveBannerToFirebase("item_6", "Susu Kalsium", supabaseUrl);
+                        Log.d("ArticleUpload", "Articles URL: " + supabaseUrl + " " + supabaseUrlPfp);
+                        saveBannerToFirebase("article_2", "Article 2", supabaseUrl, supabaseUrlPfp);
                     });
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -134,14 +147,17 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private void saveBannerToFirebase(String id, String placeholder, String imgUrl) {
-        DatabaseReference bannerRef = FirebaseDatabase.getInstance().getReference("shop");
+    private void saveBannerToFirebase(String id, String placeholder, String imgUrl, String pfpUrl) {
+        DatabaseReference bannerRef = FirebaseDatabase.getInstance().getReference("article");
 
         Map<String, Object> bannerData = new HashMap<>();
         bannerData.put("name", placeholder);
         bannerData.put("img", imgUrl);
-        bannerData.put("price", 780000);
-        bannerData.put("rating", 4.9);
+        bannerData.put("pfp", pfpUrl);
+        bannerData.put("title", "Makanan bernutrisi untuk keluarga dan lansia");
+        bannerData.put("subtext", "Makanan bergizi dengan porsi secukupnya");
+        bannerData.put("author", "Kiana Reeves");
+        bannerData.put("date", "18 Jul 2025");
 
         bannerRef.child(id).setValue(bannerData)
                 .addOnSuccessListener(unused ->

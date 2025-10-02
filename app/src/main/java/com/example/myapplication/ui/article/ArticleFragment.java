@@ -15,7 +15,6 @@ import com.example.myapplication.ui.article.item.Article;
 import com.example.myapplication.ui.article.item.ArticleAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ArticleFragment extends Fragment {
 
@@ -32,24 +31,14 @@ public class ArticleFragment extends Fragment {
 
         // Setup RecyclerView
         binding.recyclerViewArticles.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        // Dummy data (you can fetch from ViewModel later)
-        List<Article> articleList = new ArrayList<>();
-        articleList.add(new Article("Hidup bahagia bersama lansia-mu. Mari olahraga!",
-                "Lansia sehat, keluarga bahagia",
-                "Marina Steves",
-                "16 Jul 2025"));
-        articleList.add(new Article("Makanan bernutrisi untuk keluarga dan lansia",
-                "Makanan bergizi dengan porsi se...",
-                "Kiana Reeves",
-                "18 Jul 2025"));
-        articleList.add(new Article("Caregiver sebagai teman dan perawat lansia",
-                "Caregiver tidak hanya membant...",
-                "Kezia Ameiz",
-                "18 Jul 2025"));
-
-        adapter = new ArticleAdapter(articleList);
+        adapter = new ArticleAdapter(new ArrayList<>());
         binding.recyclerViewArticles.setAdapter(adapter);
+
+        // Observe Firebase data
+        articleViewModel.getArticles().observe(getViewLifecycleOwner(), articles -> {
+            adapter = new ArticleAdapter(articles);
+            binding.recyclerViewArticles.setAdapter(adapter);
+        });
 
         return root;
     }
