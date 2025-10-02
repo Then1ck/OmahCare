@@ -5,9 +5,17 @@
     android:orientation="vertical"
     android:background="#F5F5F5">
 
+    <!-- Banner carousel at the top -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/banner_carousel"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        android:padding="8dp" />
+
     <include layout="@layout/header_balance_card"/>
     <include layout="@layout/feature_menu"/>
-<!--    <include layout="@layout/item_product_card"/>-->
     <include layout="@layout/recommendation_section"/>
 
 </LinearLayout>
