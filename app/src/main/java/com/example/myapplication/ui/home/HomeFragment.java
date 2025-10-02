@@ -2,6 +2,7 @@ package com.example.myapplication.ui.home;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
@@ -23,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,6 +44,10 @@ public class HomeFragment extends Fragment {
     private BannerAdapter bannerAdapter;
     private final List<String> bannerUrls = new ArrayList<>();
 
+    // 🔹 Auto-scroll handler
+    private final Handler sliderHandler = new Handler();
+    private Runnable sliderRunnable;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -49,6 +57,17 @@ public class HomeFragment extends Fragment {
         bannerCarousel = root.findViewById(R.id.banner_carousel);
         bannerAdapter = new BannerAdapter(requireContext(), bannerUrls);
         bannerCarousel.setAdapter(bannerAdapter);
+
+        changeViewPagerScrollSpeed(bannerCarousel, 1000);
+
+        // Auto-scroll runnable
+        sliderRunnable = () -> {
+            if (!bannerUrls.isEmpty()) {
+                int nextPos = (bannerCarousel.getCurrentItem() + 1) % bannerUrls.size();
+                bannerCarousel.setCurrentItem(nextPos, true);
+                sliderHandler.postDelayed(sliderRunnable, 3000); // every 3 sec
+            }
+        };
 
         // 🔹 Load banners from Firebase
         loadBannersFromFirebase();
@@ -82,6 +101,12 @@ public class HomeFragment extends Fragment {
                     }
                 }
                 bannerAdapter.notifyDataSetChanged();
+
+                // Start auto-scroll once data is ready
+                if (!bannerUrls.isEmpty()) {
+                    sliderHandler.removeCallbacks(sliderRunnable);
+                    sliderHandler.postDelayed(sliderRunnable, 3000);
+                }
             }
 
             @Override
@@ -90,4 +115,53 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        sliderHandler.removeCallbacks(sliderRunnable); // stop when leaving
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!bannerUrls.isEmpty()) {
+            sliderHandler.postDelayed(sliderRunnable, 3000);
+        }
+    }
+
+    private void changeViewPagerScrollSpeed(ViewPager2 viewPager, int duration) {
+        try {
+            // Get RecyclerView inside ViewPager2
+            RecyclerView recyclerView = (RecyclerView) viewPager.getChildAt(0);
+            Class<?> recyclerViewClass = recyclerView.getClass().getSuperclass();
+
+            Field layoutManagerField = recyclerViewClass.getDeclaredField("mLayout");
+            layoutManagerField.setAccessible(true);
+
+            RecyclerView.LayoutManager layoutManager = (RecyclerView.LayoutManager) layoutManagerField.get(recyclerView);
+
+            Field mSmoothScroller = layoutManager.getClass().getDeclaredField("mSmoothScroller");
+            mSmoothScroller.setAccessible(true);
+
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false) {
+                @Override
+                public void smoothScrollToPosition(RecyclerView recyclerView, RecyclerView.State state, int position) {
+                    LinearSmoothScroller scroller = new LinearSmoothScroller(recyclerView.getContext()) {
+                        @Override
+                        protected int calculateTimeForScrolling(int dx) {
+                            return duration; // custom duration
+                        }
+                    };
+                    scroller.setTargetPosition(position);
+                    startSmoothScroll(scroller);
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
+
