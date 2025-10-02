@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.article.item;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +50,21 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
                 .placeholder(R.drawable.ic_caregiver)
                 .circleCrop()
                 .into(holder.authorAvatar);
+
+        // CLICK → go to ArticleReadActivity
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(holder.itemView.getContext(), ArticleReadActivity.class);
+            intent.putExtra("title", article.getTitle());
+            intent.putExtra("author", article.getAuthor());
+            intent.putExtra("date", article.getDate());
+            intent.putExtra("subtext", article.getSubtext());
+            intent.putExtra("img", article.getImg());
+            intent.putExtra("pfp", article.getPfp());
+            intent.putExtra("content", article.getContent());
+            holder.itemView.getContext().startActivity(intent);
+        });
     }
+
 
     @Override
     public int getItemCount() {

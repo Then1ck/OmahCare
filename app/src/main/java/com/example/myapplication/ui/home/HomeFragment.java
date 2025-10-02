@@ -86,7 +86,7 @@ public class HomeFragment extends Fragment {
 //        productAdapter = new ProductAdapter(products);
 //        recyclerView.setAdapter(productAdapter);
 
-        uploadBannerDrawable();
+//        uploadBannerDrawable();
 
         return root;
     }
