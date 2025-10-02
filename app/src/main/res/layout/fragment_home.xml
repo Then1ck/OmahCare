@@ -1,21 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#F5F5F5">
+    android:fillViewport="true"
+    android:background="#F5F5F5"
+    android:paddingBottom="56dp"
+    android:clipToPadding="false">
 
-    <!-- Banner carousel at the top -->
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/banner_carousel"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:clipToPadding="false"
-        android:clipChildren="false"
-        android:padding="8dp" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    <include layout="@layout/header_balance_card"/>
-    <include layout="@layout/feature_menu"/>
-    <include layout="@layout/recommendation_section"/>
+        <!-- Banner carousel -->
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/banner_carousel"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:clipToPadding="false"
+            android:clipChildren="false"
+            android:padding="8dp" />
 
-</LinearLayout>
+        <include layout="@layout/header_balance_card"/>
+        <include layout="@layout/feature_menu"/>
+        <include layout="@layout/recommendation_section"/>
+
+    </LinearLayout>
+</ScrollView>
