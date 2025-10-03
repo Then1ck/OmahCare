@@ -93,12 +93,12 @@ public class HomeFragment extends Fragment {
 
     private void uploadBannerDrawable() {
         // 1. Get bitmap from drawable
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.article_2);
-        Bitmap pfp = BitmapFactory.decodeResource(getResources(), R.drawable.pfp_2);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.pfp_1);
+//        Bitmap pfp = BitmapFactory.decodeResource(getResources(), R.drawable.pfp_2);
 
         // 2. Save bitmap into a temporary file (PNG)
-        File tempFile = new File(requireContext().getCacheDir(), "article_2.png");
-        File tempPfp = new File(requireContext().getCacheDir(), "pfp_2.png");
+        File tempFile = new File(requireContext().getCacheDir(), "pfp_1.png");
+//        File tempPfp = new File(requireContext().getCacheDir(), "pfp_2.png");
 
         try {
             FileOutputStream outputStream = new FileOutputStream(tempFile);
@@ -106,14 +106,14 @@ public class HomeFragment extends Fragment {
             outputStream.flush();
             outputStream.close();
 
-            FileOutputStream outputPfp = new FileOutputStream(tempPfp);
-            pfp.compress(Bitmap.CompressFormat.PNG, 100, outputPfp);
-            outputPfp.flush();
-            outputPfp.close();
+//            FileOutputStream outputPfp = new FileOutputStream(tempPfp);
+//            pfp.compress(Bitmap.CompressFormat.PNG, 100, outputPfp);
+//            outputPfp.flush();
+//            outputPfp.close();
 
             // 3. Define path inside Supabase bucket
-            String uploadPath = "thumbnail/article_2.png";
-            String uploadPfp = "profile/pfp_2.png";
+            String uploadPath = "pfp/pfp_1.png";
+//            String uploadPfp = "profile/pfp_2.png";
 
             // 4. Upload in background
             new Thread(() -> {
@@ -124,15 +124,15 @@ public class HomeFragment extends Fragment {
                             uploadPath
                     );
 
-                    String supabaseUrlPfp = SupabaseClient.uploadImage(
-                            requireContext(),
-                            tempPfp,
-                            uploadPfp
-                    );
+//                    String supabaseUrlPfp = SupabaseClient.uploadImage(
+//                            requireContext(),
+//                            tempPfp,
+//                            uploadPfp
+//                    );
 
                     requireActivity().runOnUiThread(() -> {
-                        Log.d("ArticleUpload", "Articles URL: " + supabaseUrl + " " + supabaseUrlPfp);
-                        saveBannerToFirebase("article_2", "Article 2", supabaseUrl, supabaseUrlPfp);
+                        Log.d("PfpUpload", "Pfp URL: " + supabaseUrl + " ");
+                        saveBannerToFirebase("pfp_1", "John Doe", supabaseUrl);
                     });
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -147,14 +147,14 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private void saveBannerToFirebase(String id, String placeholder, String imgUrl, String pfpUrl) {
-        DatabaseReference bannerRef = FirebaseDatabase.getInstance().getReference("article");
+    private void saveBannerToFirebase(String id, String placeholder, String imgUrl) {
+        DatabaseReference bannerRef = FirebaseDatabase.getInstance().getReference("accounts");
 
         Map<String, Object> bannerData = new HashMap<>();
         bannerData.put("name", placeholder);
         bannerData.put("img", imgUrl);
-        bannerData.put("pfp", pfpUrl);
-        bannerData.put("title", "Makanan bernutrisi untuk keluarga dan lansia");
+//        bannerData.put("pfp", pfpUrl);
+        bannerData.put("email", "johndoe@gmail.com");
         bannerData.put("subtext", "Makanan bergizi dengan porsi secukupnya");
         bannerData.put("author", "Kiana Reeves");
         bannerData.put("date", "18 Jul 2025");
