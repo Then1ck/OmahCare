@@ -4,28 +4,87 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
+import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentProfileBinding;
 
 public class ProfileFragment extends Fragment {
 
     private FragmentProfileBinding binding;
 
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        ProfileViewModel profileViewModel =
-                new ViewModelProvider(this).get(ProfileViewModel.class);
 
         binding = FragmentProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textProfile;
-        profileViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        // Example: Set profile name and email (you can load these dynamically)
+        TextView tvName = root.findViewById(R.id.tvName);
+        TextView tvEmail = root.findViewById(R.id.tvEmail);
+        ImageView btnEditProfile = root.findViewById(R.id.btnEditProfile);
+
+        tvName.setText("John Doe");
+        tvEmail.setText("johndoe@gmail.com");
+
+        // Pencil edit button click
+        btnEditProfile.setOnClickListener(v -> {
+            Toast.makeText(getContext(), "Edit Profile clicked", Toast.LENGTH_SHORT).show();
+            // You can navigate to EditProfileFragment or open a dialog here
+        });
+
+        // Handle settings clicks
+        View settingList = root.findViewById(R.id.settingsList);
+
+        LinearLayout rowNotification = settingList.findViewWithTag("Notification");
+        LinearLayout rowLanguage = settingList.findViewWithTag("Language");
+        LinearLayout rowTransaction = settingList.findViewWithTag("Transaction Method");
+        LinearLayout rowAbout = settingList.findViewWithTag("About OmahCare");
+        LinearLayout rowHelp = settingList.findViewWithTag("Help");
+        LinearLayout rowPrivacy = settingList.findViewWithTag("Privacy Policy");
+        LinearLayout rowRate = settingList.findViewWithTag("Rate OmahCare");
+
+        if (rowNotification != null) {
+            rowNotification.setOnClickListener(v ->
+                    Toast.makeText(getContext(), "Notification clicked", Toast.LENGTH_SHORT).show());
+        }
+        if (rowLanguage != null) {
+            rowLanguage.setOnClickListener(v ->
+                    Toast.makeText(getContext(), "Language clicked", Toast.LENGTH_SHORT).show());
+        }
+        if (rowTransaction != null) {
+            rowTransaction.setOnClickListener(v ->
+                    Toast.makeText(getContext(), "Transaction Method clicked", Toast.LENGTH_SHORT).show());
+        }
+        if (rowAbout != null) {
+            rowAbout.setOnClickListener(v ->
+                    Toast.makeText(getContext(), "About OmahCare clicked", Toast.LENGTH_SHORT).show());
+        }
+        if (rowHelp != null) {
+            rowHelp.setOnClickListener(v ->
+                    Toast.makeText(getContext(), "Help clicked", Toast.LENGTH_SHORT).show());
+        }
+        if (rowPrivacy != null) {
+            rowPrivacy.setOnClickListener(v ->
+                    Toast.makeText(getContext(), "Privacy Policy clicked", Toast.LENGTH_SHORT).show());
+        }
+        if (rowRate != null) {
+            rowRate.setOnClickListener(v ->
+                    Toast.makeText(getContext(), "Rate OmahCare clicked", Toast.LENGTH_SHORT).show());
+        }
+
+        // Handle Sign Out
+        LinearLayout rowSignOut = root.findViewById(R.id.rowSignOut);
+        rowSignOut.setOnClickListener(v ->
+                Toast.makeText(getContext(), "Signed Out", Toast.LENGTH_SHORT).show());
+
         return root;
     }
 
