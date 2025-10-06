@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentProfileBinding;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class ProfileFragment extends Fragment {
 
@@ -31,8 +35,20 @@ public class ProfileFragment extends Fragment {
         TextView tvEmail = root.findViewById(R.id.tvEmail);
         ImageView btnEditProfile = root.findViewById(R.id.btnEditProfile);
 
-        tvName.setText("John Doe");
-        tvEmail.setText("johndoe@gmail.com");
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user != null) {
+            String name = user.getDisplayName();
+            String email = user.getEmail();
+
+            tvName.setText(name != null ? name : "No Name");
+            tvEmail.setText(email != null ? email : "No Email");
+        } else {
+            tvName.setText("Guest");
+            tvEmail.setText("Not signed in");
+        }
+
 
         // Pencil edit button click
         btnEditProfile.setOnClickListener(v -> {
@@ -82,8 +98,16 @@ public class ProfileFragment extends Fragment {
 
         // Handle Sign Out
         LinearLayout rowSignOut = root.findViewById(R.id.rowSignOut);
-        rowSignOut.setOnClickListener(v ->
-                Toast.makeText(getContext(), "Signed Out", Toast.LENGTH_SHORT).show());
+        rowSignOut.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            Toast.makeText(getContext(), "Signed Out", Toast.LENGTH_SHORT).show();
+
+            // Redirect back to Sign-In or Sign-Up activity
+            Intent intent = new Intent(getActivity(), com.example.myapplication.system.ActivitySignUp.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        });
+
 
         return root;
     }

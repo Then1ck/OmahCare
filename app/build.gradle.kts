@@ -45,6 +45,7 @@ dependencies {
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
     implementation(libs.firebase.database)
+    implementation(libs.firebase.auth)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -55,5 +56,11 @@ dependencies {
     annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")
     implementation ("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")
+
+    // Firebase Authentication
+    implementation ("com.google.firebase:firebase-auth:22.3.2")
+
+    // Google Sign-In for Firebase
+    implementation ("com.google.android.gms:play-services-auth:21.2.0")
 
 }

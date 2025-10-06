@@ -33,6 +33,9 @@
         <activity
             android:name=".ui.article.item.ArticleReadActivity"
             android:exported="true" />
+        <activity
+            android:name=".system.ActivitySignUp"
+            android:exported="true"/>
     </application>
 
 </manifest>
