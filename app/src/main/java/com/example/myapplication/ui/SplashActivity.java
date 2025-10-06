@@ -8,6 +8,7 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.MainActivity;
+import com.example.myapplication.system.ActivityLogIn;
 import com.example.myapplication.system.ActivitySignUp;
 import com.example.myapplication.R;
 
@@ -34,7 +35,7 @@ public class SplashActivity extends AppCompatActivity {
                     intent = new Intent(SplashActivity.this, MainActivity.class);
                 } else {
                     // No account logged in → go to Sign Up
-                    intent = new Intent(SplashActivity.this, ActivitySignUp.class);
+                    intent = new Intent(SplashActivity.this, ActivityLogIn.class);
                 }
 
                 startActivity(intent);
