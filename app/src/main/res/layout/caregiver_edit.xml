@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".main_func.caregiver.CaregiverEditActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Back Button -->
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_back"
+            android:contentDescription="Back" />
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="Edit Pasien"
+            android:textColor="@color/black"
+            android:textSize="18sp"/>
+
+        <!-- Nama & Umur -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Nama"
+            android:textColor="#5e89e5"
+            android:textSize="12sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:weightSum="1"
+            android:layout_marginTop="4dp">
+
+            <EditText
+                android:id="@+id/etNama"
+                android:layout_width="0dp"
+                android:layout_height="46dp"
+                android:layout_weight="0.7"
+                android:background="@drawable/rounded_white_box"
+                android:hint="Budiyanto"
+                android:padding="12dp"
+                android:textSize="12sp"
+                android:textColor="#838282" />
+
+            <Space
+                android:layout_width="8dp"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/etUmur"
+                android:layout_width="0dp"
+                android:layout_height="46dp"
+                android:layout_weight="0.3"
+                android:background="@drawable/rounded_white_box"
+                android:hint="65"
+                android:gravity="center"
+                android:padding="12dp"
+                android:textSize="12sp"
+                android:textColor="#838282" />
+        </LinearLayout>
+
+        <!-- Jenis Kelamin -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Jenis Kelamin"
+            android:textColor="#5e89e5"
+            android:textSize="12sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="4dp">
+
+            <Button
+                android:id="@+id/btnLaki"
+                android:layout_width="0dp"
+                android:layout_height="46dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_white_box"
+                android:text="Laki - laki"
+                android:textColor="#838282"
+                android:textSize="12sp"
+                android:textAllCaps="false"/>
+
+            <Space
+                android:layout_width="8dp"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btnPerempuan"
+                android:layout_width="0dp"
+                android:layout_height="46dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_white_box"
+                android:text="Perempuan"
+                android:textColor="#838282"
+                android:textSize="12sp"
+                android:textAllCaps="false"/>
+        </LinearLayout>
+
+
+        <!-- Agama -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Agama"
+            android:textColor="#5e89e5"
+            android:textSize="12sp"/>
+
+        <EditText
+            android:id="@+id/etAgama"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/rounded_white_box"
+            android:hint="Kristen"
+            android:padding="12dp"
+            android:textSize="12sp"
+            android:textColor="#838282" />
+
+        <!-- Hubungan -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Apa hubungan Pasien dengan Anda?"
+            android:textColor="#5e89e5"
+            android:textSize="12sp"/>
+
+        <EditText
+            android:id="@+id/etHubungan"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/rounded_white_box"
+            android:hint="Kakek"
+            android:padding="12dp"
+            android:textSize="12sp"
+            android:textColor="#838282" />
+
+        <!-- Keluhan -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Keluhan Pasien"
+            android:textColor="#5e89e5"
+            android:textSize="12sp"/>
+
+        <EditText
+            android:id="@+id/etKeluhan"
+            android:layout_width="match_parent"
+            android:layout_height="117dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/rounded_white_box"
+            android:hint="Demensia"
+            android:gravity="top|start"
+            android:padding="12dp"
+            android:textSize="12sp"
+            android:textColor="#838282" />
+
+        <!-- Save Button -->
+        <Button
+            android:id="@+id/btnSimpan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/bg_rounded_button"
+            android:text="Simpan"
+            android:textColor="@color/white"
+            android:textAllCaps="false"/>
+
+        <!-- Spacer for home bar -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:layout_marginTop="24dp" />
+
+    </LinearLayout>
+</ScrollView>

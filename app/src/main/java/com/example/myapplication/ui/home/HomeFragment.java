@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.home;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.main_func.caregiver.CaregiverActivity;
 import com.example.myapplication.ui.home.banner.BannerAdapter;
 import com.example.myapplication.ui.home.products.Product;
 import com.example.myapplication.ui.home.products.ProductAdapter;
@@ -87,6 +89,14 @@ public class HomeFragment extends Fragment {
 //        recyclerView.setAdapter(productAdapter);
 
 //        uploadBannerDrawable();
+
+        // 🔹 Caregiver button click → open CaregiverActivity
+        View caregiverButton = root.findViewById(R.id.caregiver);
+        caregiverButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), CaregiverActivity.class);
+            startActivity(intent);
+        });
+
 
         return root;
     }

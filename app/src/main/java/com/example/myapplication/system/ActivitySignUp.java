@@ -24,6 +24,10 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 public class ActivitySignUp extends AppCompatActivity {
 
@@ -35,6 +39,8 @@ public class ActivitySignUp extends AppCompatActivity {
 
     // Firebase and Google
     private FirebaseAuth firebaseAuth;
+
+    private DatabaseReference databaseRef;
 //    private GoogleSignInClient googleSignInClient;
     private static final int RC_SIGN_IN = 9001;
 
@@ -54,6 +60,9 @@ public class ActivitySignUp extends AppCompatActivity {
 
         // Initialize Firebase
         firebaseAuth = FirebaseAuth.getInstance();
+
+        databaseRef = com.google.firebase.database.FirebaseDatabase.getInstance().getReference("profile");
+
 
         // Configure Google Sign-In
 //        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -124,6 +133,7 @@ public class ActivitySignUp extends AppCompatActivity {
                                             .build())
                                     .addOnCompleteListener(profileTask -> {
                                         if (profileTask.isSuccessful()) {
+                                            writeUserProfile(fullname, email);
                                             Toast.makeText(ActivitySignUp.this, "Sign Up Successful!", Toast.LENGTH_SHORT).show();
                                             startHomeActivity();
                                         } else {
@@ -169,6 +179,37 @@ public class ActivitySignUp extends AppCompatActivity {
                     }
                 });
     }
+
+
+    private void writeUserProfile(String fullname, String email) {
+        // Read the current list to find the last user number
+        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                long count = snapshot.getChildrenCount();
+                String userId = "user_" + (count + 1);
+
+                DatabaseReference newUserRef = databaseRef.child(userId);
+                newUserRef.child("name").setValue(fullname);
+                newUserRef.child("email").setValue(email)
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(ActivitySignUp.this, "Sign Up Successful!", Toast.LENGTH_SHORT).show();
+                                startHomeActivity();
+                            } else {
+                                Toast.makeText(ActivitySignUp.this, "Database write failed: " +
+                                        task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                Toast.makeText(ActivitySignUp.this, "Database Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
     private void startHomeActivity() {
         Intent intent = new Intent(ActivitySignUp.this, MainActivity.class);

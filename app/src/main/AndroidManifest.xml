@@ -39,6 +39,15 @@
         <activity
             android:name=".system.ActivityLogIn"
             android:exported="true"/>
+        <activity
+            android:name=".main_func.caregiver.CaregiverActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".main_func.caregiver.CaregiverEditActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".main_func.caregiver.CaregiverDurationActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>
