@@ -2,8 +2,6 @@ package com.example.myapplication.main_func.caregiver;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-//import android.widget.CardView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -17,7 +15,7 @@ public class CaregiverDurationActivity extends AppCompatActivity {
     private ImageView btnBack;
     private CardView card3Hari, card5Hari, card10Hari, card15Hari, card30Hari;
 
-    // Optional: store passed data
+    // Data received from previous screen
     private String lansiaId, name, age, gender, religion, relation, complaint;
 
     @Override
@@ -33,7 +31,7 @@ public class CaregiverDurationActivity extends AppCompatActivity {
         card15Hari = findViewById(R.id.card_15hari);
         card30Hari = findViewById(R.id.card_30hari);
 
-        // Receive data from CaregiverActivity
+        // Receive data from previous activity
         Intent intent = getIntent();
         if (intent != null) {
             lansiaId = intent.getStringExtra("lansiaId");
@@ -45,10 +43,10 @@ public class CaregiverDurationActivity extends AppCompatActivity {
             complaint = intent.getStringExtra("complaint");
         }
 
-        // Back button → finish
+        // Back button
         btnBack.setOnClickListener(v -> onBackPressed());
 
-        // Handle duration selections
+        // Handle duration card selections
         card3Hari.setOnClickListener(v -> handleDurationSelection(3));
         card5Hari.setOnClickListener(v -> handleDurationSelection(5));
         card10Hari.setOnClickListener(v -> handleDurationSelection(10));
@@ -57,13 +55,10 @@ public class CaregiverDurationActivity extends AppCompatActivity {
     }
 
     private void handleDurationSelection(int days) {
-        // For now, show a Toast confirmation
         Toast.makeText(this, "Durasi dipilih: " + days + " hari", Toast.LENGTH_SHORT).show();
 
-        // ✅ If you have a next screen (e.g., confirmation or caregiver matching),
-        // you can start it like this:
-        /*
-        Intent nextIntent = new Intent(this, NextActivity.class);
+        // ✅ Go to CaregiverSelectActivity, send all data
+        Intent nextIntent = new Intent(this, CaregiverSelectActivity.class);
         nextIntent.putExtra("lansiaId", lansiaId);
         nextIntent.putExtra("name", name);
         nextIntent.putExtra("age", age);
@@ -73,6 +68,5 @@ public class CaregiverDurationActivity extends AppCompatActivity {
         nextIntent.putExtra("complaint", complaint);
         nextIntent.putExtra("durationDays", days);
         startActivity(nextIntent);
-        */
     }
 }
