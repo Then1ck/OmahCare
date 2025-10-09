@@ -85,6 +85,11 @@ public class CaregiverSelectAdapter extends RecyclerView.Adapter<CaregiverSelect
             intent.putExtra("caregiverDist", caregiver.getDist());
             intent.putExtra("caregiverCost", caregiver.getCost());
 
+            // ✅ Add missing keys
+            intent.putExtra("caregiverId", caregiver.getCaregiverId()); // if exists
+            intent.putExtra("familyKey", lansiaId); // family = the selected lansia
+
+
             context.startActivity(intent);
         });
     }

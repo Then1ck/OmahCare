@@ -68,7 +68,7 @@ public class CaregiverSelectActivity extends AppCompatActivity {
         caregiverList = new ArrayList<>();
         filteredList = new ArrayList<>();
 
-        caregiverAdapter = new CaregiverSelectAdapter(this, caregiverList);
+        caregiverAdapter = new CaregiverSelectAdapter(this, filteredList);
         caregiverAdapter.setExtraData(
                 lansiaId, name, age, gender, religion, relation, complaint, durationDays
         );
@@ -96,6 +96,7 @@ public class CaregiverSelectActivity extends AppCompatActivity {
                 for (DataSnapshot data : snapshot.getChildren()) {
                     CaregiverModel caregiver = data.getValue(CaregiverModel.class);
                     if (caregiver != null) {
+                        caregiver.setCaregiverId(data.getKey()); // ✅ store Firebase key as caregiverId
                         caregiverList.add(caregiver);
                     }
                 }

@@ -1,32 +1,39 @@
 package com.example.myapplication.main_func.caregiver;
 
 public class CaregiverModel {
+    private String caregiverId; // ✅ new field for Firebase key
     private String name;
-    private String img;
-    private double exp;
+    private int exp;
     private double dist;
-    private double cost;
+    private long cost;
+    private String img;
 
     // Required empty constructor for Firebase
-    public CaregiverModel() { }
+    public CaregiverModel() {}
 
-    public CaregiverModel(String name, String img, double exp, double dist, double cost) {
+    // Full constructor (optional, for manual creation)
+    public CaregiverModel(String caregiverId, String name, int exp, double dist, long cost, String img) {
+        this.caregiverId = caregiverId;
         this.name = name;
-        this.img = img;
         this.exp = exp;
         this.dist = dist;
         this.cost = cost;
+        this.img = img;
     }
 
+    // ✅ Getters
+    public String getCaregiverId() { return caregiverId; }
     public String getName() { return name; }
-    public String getImg() { return img; }
-    public double getExp() { return exp; }
+    public int getExp() { return exp; }
     public double getDist() { return dist; }
-    public double getCost() { return cost; }
+    public long getCost() { return cost; }
+    public String getImg() { return img; }
 
+    // ✅ Setters
+    public void setCaregiverId(String caregiverId) { this.caregiverId = caregiverId; }
     public void setName(String name) { this.name = name; }
-    public void setImg(String img) { this.img = img; }
-    public void setExp(double exp) { this.exp = exp; }
+    public void setExp(int exp) { this.exp = exp; }
     public void setDist(double dist) { this.dist = dist; }
-    public void setCost(double cost) { this.cost = cost; }
+    public void setCost(long cost) { this.cost = cost; }
+    public void setImg(String img) { this.img = img; }
 }

@@ -144,6 +144,7 @@
             android:layout_height="wrap_content"/>
 
         <EditText
+            android:id="@+id/etNotes"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:hint="Blok/Unit/Patokan"
@@ -174,6 +175,7 @@
             android:layout_height="wrap_content"/>
 
         <EditText
+            android:id="@+id/etExtra"
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:hint="Keluhan Pasien"
@@ -187,7 +189,7 @@
 
         <!-- Verification Button -->
         <Button
-            android:id="@+id/btnVerifikasi"
+            android:id="@+id/btnVerify"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:text="Verifikasi"
