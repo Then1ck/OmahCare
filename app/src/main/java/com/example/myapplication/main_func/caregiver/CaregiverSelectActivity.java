@@ -67,8 +67,13 @@ public class CaregiverSelectActivity extends AppCompatActivity {
         // 🔹 Initialize lists and adapter
         caregiverList = new ArrayList<>();
         filteredList = new ArrayList<>();
-        caregiverAdapter = new CaregiverSelectAdapter(this, filteredList);
+
+        caregiverAdapter = new CaregiverSelectAdapter(this, caregiverList);
+        caregiverAdapter.setExtraData(
+                lansiaId, name, age, gender, religion, relation, complaint, durationDays
+        );
         caregiverRecyclerView.setAdapter(caregiverAdapter);
+
 
         // 🔹 Firebase reference
         caregiverRef = FirebaseDatabase.getInstance().getReference("caregiver");

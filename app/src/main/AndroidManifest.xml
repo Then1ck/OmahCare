@@ -51,6 +51,9 @@
         <activity
             android:name=".main_func.caregiver.CaregiverSelectActivity"
             android:exported="true"/>
+        <activity
+            android:name=".main_func.caregiver.CaregiverDateActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>

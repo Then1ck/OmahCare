@@ -1,6 +1,7 @@
 package com.example.myapplication.main_func.caregiver;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,18 +15,33 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
 public class CaregiverSelectAdapter extends RecyclerView.Adapter<CaregiverSelectAdapter.ViewHolder> {
 
     private Context context;
     private List<CaregiverModel> caregiverList;
-    private DecimalFormat priceFormat = new DecimalFormat("#,###");
+
+    // Extra data passed from previous activity
+    private String lansiaId, name, age, gender, religion, relation, complaint;
+    private int durationDays;
 
     public CaregiverSelectAdapter(Context context, List<CaregiverModel> caregiverList) {
         this.context = context;
         this.caregiverList = caregiverList;
+    }
+
+    // Allow adapter to receive extra data later
+    public void setExtraData(String lansiaId, String name, String age, String gender,
+                             String religion, String relation, String complaint, int durationDays) {
+        this.lansiaId = lansiaId;
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.religion = religion;
+        this.relation = relation;
+        this.complaint = complaint;
+        this.durationDays = durationDays;
     }
 
     @NonNull
@@ -39,16 +55,38 @@ public class CaregiverSelectAdapter extends RecyclerView.Adapter<CaregiverSelect
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         CaregiverModel caregiver = caregiverList.get(position);
 
-        holder.textName.setText(caregiver.getName());
-        holder.textExperience.setText((int) caregiver.getExp() + " tahun pengalaman");
-        holder.textDistance.setText(caregiver.getDist() + " km dari lokasi anda");
-        holder.textPrice.setText("Rp " + priceFormat.format(caregiver.getCost()));
+        holder.tvName.setText(caregiver.getName());
+        holder.tvExp.setText(caregiver.getExp() + " tahun pengalaman");
+        holder.tvDist.setText(caregiver.getDist() + " km dari lokasi anda");
+        holder.tvCost.setText("Rp " + caregiver.getCost());
 
+        // Load image from Firebase URL
         Glide.with(context)
                 .load(caregiver.getImg())
                 .placeholder(R.drawable.ic_caregiver)
-                .error(R.drawable.ic_caregiver)
-                .into(holder.imageCaregiver);
+                .into(holder.ivPhoto);
+
+        // 🔹 "Pesan" button → go to CaregiverDateActivity
+        holder.btnPesan.setOnClickListener(v -> {
+            Intent intent = new Intent(context, CaregiverDateActivity.class);
+            intent.putExtra("lansiaId", lansiaId);
+            intent.putExtra("name", name);
+            intent.putExtra("age", age);
+            intent.putExtra("gender", gender);
+            intent.putExtra("religion", religion);
+            intent.putExtra("relation", relation);
+            intent.putExtra("complaint", complaint);
+            intent.putExtra("durationDays", durationDays);
+
+            // Add caregiver-specific data
+            intent.putExtra("caregiverName", caregiver.getName());
+            intent.putExtra("caregiverImg", caregiver.getImg());
+            intent.putExtra("caregiverExp", caregiver.getExp());
+            intent.putExtra("caregiverDist", caregiver.getDist());
+            intent.putExtra("caregiverCost", caregiver.getCost());
+
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -57,18 +95,18 @@ public class CaregiverSelectAdapter extends RecyclerView.Adapter<CaregiverSelect
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageCaregiver;
-        TextView textName, textExperience, textDistance, textPrice;
-        Button buttonOrder;
+        ImageView ivPhoto;
+        TextView tvName, tvExp, tvDist, tvCost;
+        Button btnPesan;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageCaregiver = itemView.findViewById(R.id.imageCaregiver);
-            textName = itemView.findViewById(R.id.textName);
-            textExperience = itemView.findViewById(R.id.textExperience);
-            textDistance = itemView.findViewById(R.id.textDistance);
-            textPrice = itemView.findViewById(R.id.textPrice);
-            buttonOrder = itemView.findViewById(R.id.buttonOrder);
+            ivPhoto = itemView.findViewById(R.id.imageCaregiver);
+            tvName = itemView.findViewById(R.id.textName);
+            tvExp = itemView.findViewById(R.id.textExperience);
+            tvDist = itemView.findViewById(R.id.textDistance);
+            tvCost = itemView.findViewById(R.id.textPrice);
+            btnPesan = itemView.findViewById(R.id.buttonOrder);
         }
     }
 }

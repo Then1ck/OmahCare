@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/white"
+    android:layout_marginTop="60dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Back button -->
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:contentDescription="back"
+            android:src="@drawable/ic_back" />
+
+        <!-- Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Daftar Perawat"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:textColor="#000000" />
+
+        <!-- Included Caregiver Item -->
+        <include
+            layout="@layout/item_ordered_caregiver" />
+
+        <!-- Section: Date Picker -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pilih tanggal mulai"
+            android:layout_marginStart="12dp"
+            android:textSize="20sp"
+            android:layout_marginTop="24dp"
+            android:textStyle="bold"
+            android:textColor="#000000" />
+
+        <!-- Calendar Card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/calendarCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <!-- Month and Year -->
+                <TextView
+                    android:id="@+id/tvMonthYear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="September 2025"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:paddingBottom="8dp" />
+
+                <!-- Weekdays Header -->
+                <LinearLayout
+                    android:id="@+id/weekHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <TextView android:text="Sun" style="@style/CalendarWeekdayStyle" />
+                    <TextView android:text="Mon" style="@style/CalendarWeekdayStyle" />
+                    <TextView android:text="Tue" style="@style/CalendarWeekdayStyle" />
+                    <TextView android:text="Wed" style="@style/CalendarWeekdayStyle" />
+                    <TextView android:text="Thu" style="@style/CalendarWeekdayStyle" />
+                    <TextView android:text="Fri" style="@style/CalendarWeekdayStyle" />
+                    <TextView android:text="Sat" style="@style/CalendarWeekdayStyle" />
+                </LinearLayout>
+
+                <!-- Dates Grid -->
+                <GridLayout
+                    android:id="@+id/gridDays"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="7"
+                    android:rowCount="6"
+                    android:alignmentMode="alignMargins"
+                    android:useDefaultMargins="true"
+                    android:layout_marginTop="8dp"
+                    android:columnOrderPreserved="false"
+                    android:gravity="center" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Section: Alamat -->
+        <TextView
+            android:text="Alamat"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:paddingTop="4dp"
+            android:paddingBottom="8dp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+
+        <TextView
+            android:text="Alamat Kunjungan"
+            android:textSize="12sp"
+            android:textColor="#5e89e5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Jalan Gajah Mada, Kota Pontianak blok 15 RW03"
+            android:textSize="12sp"
+            android:textColor="#838282"
+            android:paddingBottom="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Note:"
+            android:textSize="12sp"
+            android:textColor="#5e89e5"
+            android:paddingTop="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="Blok/Unit/Patokan"
+            android:background="@drawable/bg_rounded"
+            android:padding="12dp"
+            android:textSize="12sp"
+            android:textColor="#000000"
+            android:textColorHint="#838282"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Section: Informasi Tambahan -->
+        <TextView
+            android:text="Informasi Tambahan"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:paddingBottom="6dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="Keluhan Pasien Saat Ini"
+            android:textSize="12sp"
+            android:textColor="#5e89e5"
+            android:paddingBottom="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:hint="Keluhan Pasien"
+            android:gravity="top|start"
+            android:background="@drawable/bg_rounded"
+            android:padding="12dp"
+            android:textSize="12sp"
+            android:textColor="#000000"
+            android:textColorHint="#838282"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Verification Button -->
+        <Button
+            android:id="@+id/btnVerifikasi"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Verifikasi"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_rounded_button"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp" />
+
+    </LinearLayout>
+</ScrollView>
