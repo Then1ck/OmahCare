@@ -72,6 +72,19 @@
         <activity
             android:name=".main_func.home_care.HomeCareDateActivity"
             android:exported="true"/>
+        <activity
+            android:name=".main_func.shop.ShopActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".main_func.shop.ProductDetailActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".main_func.shop.OrderActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".main_func.shop.CheckoutActivity"
+            android:exported="true"/>
+
     </application>
 
 </manifest>

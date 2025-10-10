@@ -1,5 +1,7 @@
-package com.example.myapplication.ui.home.products;
+package com.example.myapplication.main_func.shop;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,22 +13,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
+import com.example.myapplication.ui.home.products.Product;
 
 import java.util.List;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
+public class ShopProductAdapter extends RecyclerView.Adapter<ShopProductAdapter.ProductViewHolder> {
 
+    private final Context context;
     private final List<Product> productList;
 
-    public ProductAdapter(@NonNull List<Product> productList) {
+    public ShopProductAdapter(Context context, List<Product> productList) {
+        this.context = context;
         this.productList = productList;
     }
 
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.item_product_card, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_product_card, parent, false);
         return new ProductViewHolder(view);
     }
 
@@ -39,13 +43,24 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.oldPrice.setText(product.getOldPrice());
         holder.discount.setText(product.getDiscount());
 
-        // ✅ Use Glide to load product image with placeholders
-        Glide.with(holder.itemView.getContext())
+        Glide.with(context)
                 .load(product.getImageUrl())
-                .placeholder(R.drawable.ic_caregiver) // shown while loading
-                .error(R.drawable.ic_dashboard_black_24dp) // shown on failure
+                .placeholder(R.drawable.ic_caregiver)
+                .error(R.drawable.ic_dashboard_black_24dp)
                 .centerCrop()
                 .into(holder.image);
+
+        // ✅ Click → open ProductDetailActivity
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ProductDetailActivity.class);
+            intent.putExtra("name", product.getName());
+            intent.putExtra("price", product.getPrice());
+            intent.putExtra("oldPrice", product.getOldPrice());
+            intent.putExtra("discount", product.getDiscount());
+            intent.putExtra("imageUrl", product.getImageUrl());
+            intent.putExtra("rating", product.getRating());
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -54,10 +69,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
     static class ProductViewHolder extends RecyclerView.ViewHolder {
-        final TextView title;
-        final TextView price;
-        final TextView oldPrice;
-        final TextView discount;
+        final TextView title, price, oldPrice, discount;
         final ImageView image;
 
         public ProductViewHolder(@NonNull View itemView) {

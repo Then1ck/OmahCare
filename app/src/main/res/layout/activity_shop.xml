@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_belanja"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".main_func.shop.ShopActivity">
+
+    <!-- Scrollable Content -->
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottomBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="16dp"
+        android:paddingBottom="200dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_marginTop="60dp">
+
+            <ImageView
+                android:id="@+id/btn_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_back" />
+
+            <!-- Product Image -->
+            <ImageView
+                android:id="@+id/imgProduct"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_cart"
+                android:contentDescription="Product image"
+                android:background="@drawable/bg_rounded"
+                android:layout_marginTop="16dp"/>
+
+            <!-- Product Title -->
+
+            <!-- Product Price -->
+            <TextView
+                android:id="@+id/tvProductName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="12dp"
+                android:text="Nama Produk"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvProductPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rp 100.000"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/green"
+                android:paddingTop="4dp" />
+
+            <!-- Rating Section -->
+            <LinearLayout
+                android:id="@+id/layoutRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="8dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_notifications_black_24dp"
+                    android:contentDescription="Rating icon" />
+
+                <TextView
+                    android:id="@+id/tvRatingValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4.8"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:paddingStart="4dp" />
+
+                <TextView
+                    android:id="@+id/tvReviewCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(120 ulasan)"
+                    android:textSize="14sp"
+                    android:paddingStart="8dp" />
+            </LinearLayout>
+
+            <!-- Product Description -->
+            <TextView
+                android:id="@+id/tvDescriptionTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Deskripsi Produk"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:paddingTop="16dp" />
+
+            <TextView
+                android:id="@+id/tvProductDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Deskripsi lengkap produk akan ditampilkan di sini. Produk ini berkualitas tinggi dan cocok untuk kebutuhan Anda sehari-hari."
+                android:textSize="14sp"
+                android:paddingTop="4dp"
+                android:lineSpacingExtra="4dp" />
+
+            <LinearLayout
+                android:id="@+id/seller"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/bg_rounded"
+                android:padding="16dp">
+                <ImageView
+                    android:layout_width="68dp"
+                    android:layout_height="68dp"
+                    android:src="@drawable/ic_caregiver"
+                    android:background="@drawable/bg_rounded"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Toko Jaya Makmur"
+                        android:textColor="@color/black"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kota Jakarta"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Ulasan Section -->
+            <TextView
+                android:id="@+id/tvUlasanTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ulasan"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:paddingTop="20dp"
+                android:paddingBottom="8dp" />
+
+            <!-- RecyclerView for Reviews -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewUlasan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                tools:listitem="@layout/item_comments"
+                android:layout_marginBottom="40dp"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Buy Button Fixed at Bottom -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_bottom_bar"
+        android:elevation="4dp"
+        android:padding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="16dp">
+
+        <!-- Icon 1 (Favorite / Heart) -->
+        <LinearLayout
+            android:id="@+id/btnFavorite"
+            android:layout_width="41dp"
+            android:layout_height="37dp"
+            android:background="@drawable/bg_icon_box"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:contentDescription="favorite"
+                android:src="@drawable/ic_chat"
+                app:tint="@color/blue" />
+        </LinearLayout>
+
+        <!-- Icon 2 (Cart) -->
+        <LinearLayout
+            android:id="@+id/btnCart"
+            android:layout_width="41dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_icon_box"
+            android:gravity="center"
+            app:layout_constraintStart_toEndOf="@id/btnFavorite"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:contentDescription="cart"
+                android:src="@drawable/ic_cart"
+                app:tint="@color/blue" />
+        </LinearLayout>
+
+        <!-- Beli Button -->
+        <Button
+            android:id="@+id/btnBeli"
+            android:layout_width="0dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_button_beli"
+            android:text="Beli"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnCart"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
