@@ -1,4 +1,4 @@
-package com.example.myapplication.main_func.caregiver;
+package com.example.myapplication.main_func.home_care;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.system.ActivityVerified;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,7 +30,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class CaregiverDateActivity extends AppCompatActivity {
+public class HomeCareDateActivity extends AppCompatActivity {
 
     private GridLayout gridDays;
     private TextView tvMonthYear;
@@ -203,52 +202,52 @@ public class CaregiverDateActivity extends AppCompatActivity {
                     if (email != null && email.equals(userEmail)) {
                         DatabaseReference activityRef = userSnapshot.getRef()
                                 .child("activity")
-                                .child("caregiver");
+                                .child("homecare");
 
                         // Find current count
                         activityRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 long count = snapshot.getChildrenCount();
-                                String newKey = "caregiver_" + (count + 1);
+                                String newKey = "homecare_" + (count + 1);
 
                                 Map<String, Object> newActivity = new HashMap<>();
                                 newActivity.put("family", familyKey);
                                 newActivity.put("caregiver", caregiverId);
-                                newActivity.put("duration", durationDays);
+                                newActivity.put("type", durationDays);
                                 newActivity.put("date", selectedDate);
                                 newActivity.put("notes", notes);
                                 newActivity.put("extra", extra);
 
                                 activityRef.child(newKey).setValue(newActivity)
                                         .addOnSuccessListener(aVoid -> {
-                                            Toast.makeText(CaregiverDateActivity.this, "Aktivitas berhasil disimpan!", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(HomeCareDateActivity.this, "Aktivitas berhasil disimpan!", Toast.LENGTH_SHORT).show();
 
-                                            Intent intent = new Intent(CaregiverDateActivity.this, ActivityVerified.class);
+                                            Intent intent = new Intent(HomeCareDateActivity.this, ActivityVerified.class);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                             startActivity(intent);
                                             finish();
                                         })
                                         .addOnFailureListener(e ->
-                                                Toast.makeText(CaregiverDateActivity.this, "Gagal menyimpan aktivitas.", Toast.LENGTH_SHORT).show()
+                                                Toast.makeText(HomeCareDateActivity.this, "Gagal menyimpan aktivitas.", Toast.LENGTH_SHORT).show()
                                         );
 
                             }
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
-                                Toast.makeText(CaregiverDateActivity.this, "Gagal membaca data aktivitas.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(HomeCareDateActivity.this, "Gagal membaca data aktivitas.", Toast.LENGTH_SHORT).show();
                             }
                         });
                         return;
                     }
                 }
-                Toast.makeText(CaregiverDateActivity.this, "Profil pengguna tidak ditemukan.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomeCareDateActivity.this, "Profil pengguna tidak ditemukan.", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(CaregiverDateActivity.this, "Gagal memeriksa profil pengguna.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomeCareDateActivity.this, "Gagal memeriksa profil pengguna.", Toast.LENGTH_SHORT).show();
             }
         });
     }

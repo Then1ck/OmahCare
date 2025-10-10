@@ -54,6 +54,24 @@
         <activity
             android:name=".main_func.caregiver.CaregiverDateActivity"
             android:exported="true"/>
+        <activity
+            android:name=".system.ActivityVerified"
+            android:exported="true"/>
+        <activity
+            android:name=".main_func.home_care.HomeCareActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".main_func.home_care.HomeCareEditActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".main_func.home_care.HomeCareDurationActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".main_func.home_care.HomeCareSelectActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".main_func.home_care.HomeCareDateActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>
