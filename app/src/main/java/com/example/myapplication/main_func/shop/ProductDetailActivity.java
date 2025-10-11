@@ -41,9 +41,11 @@ public class ProductDetailActivity extends AppCompatActivity {
     private String productName;
 
     // Seller views
-    private LinearLayout sellerLayout;
+    private LinearLayout sellerLayout, btnChat;
     private ImageView sellerImage;
     private TextView sellerNameTv, sellerCityTv;
+    private String currentSellerKey;
+
     private String sellerNameGlobal; // store seller name for passing to SellerActivity
 
 
@@ -70,6 +72,20 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         btnBack = findViewById(R.id.btn_back);
         btnBack.setOnClickListener(v -> finish());
+
+        btnChat = findViewById(R.id.btnChat);
+        btnChat.setOnClickListener(v -> {
+            if (sellerNameGlobal != null && !sellerNameGlobal.isEmpty() && currentSellerKey != null) {
+                Intent intent = new Intent(ProductDetailActivity.this, com.example.myapplication.system.ChatActivity.class);
+                intent.putExtra("chat_with_name", sellerNameGlobal);  // display name
+                intent.putExtra("chat_with_id", currentSellerKey);    // seller_x key
+                startActivity(intent);
+            } else {
+                Toast.makeText(ProductDetailActivity.this, "Seller information not available", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
         // Set click listener
         btnCart = findViewById(R.id.btnCart);
@@ -219,6 +235,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                 Double rating = snapshot.child("rating").getValue(Double.class);
                 String city = snapshot.child("kota").getValue(String.class);
                 String imgUrl = snapshot.child("img").getValue(String.class);
+                currentSellerKey = sellerKey;
 
                 if (sellerName != null) {
                     sellerNameTv.setText(sellerName);
