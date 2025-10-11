@@ -11,6 +11,9 @@ import com.example.myapplication.MainActivity;
 import com.example.myapplication.system.ActivityLogIn;
 import com.example.myapplication.system.ActivitySignUp;
 import com.example.myapplication.R;
+import com.example.myapplication.system.OnboardingActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -28,14 +31,13 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
                 boolean isLoggedIn = prefs.getBoolean(KEY_LOGGED_IN, false);
-
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                 Intent intent;
-                if (isLoggedIn) {
-                    // User already logged in → go to MainActivity
+                if (currentUser != null) {
+                    // User is logged in
                     intent = new Intent(SplashActivity.this, MainActivity.class);
                 } else {
-                    // No account logged in → go to Sign Up
-                    intent = new Intent(SplashActivity.this, ActivityLogIn.class);
+                    intent = new Intent(SplashActivity.this, OnboardingActivity.class);
                 }
 
                 startActivity(intent);

@@ -103,7 +103,7 @@ public class ProfileFragment extends Fragment {
             Toast.makeText(getContext(), "Signed Out", Toast.LENGTH_SHORT).show();
 
             // Redirect back to Sign-In or Sign-Up activity
-            Intent intent = new Intent(getActivity(), com.example.myapplication.system.ActivitySignUp.class);
+            Intent intent = new Intent(getActivity(), com.example.myapplication.system.OnboardingActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         });

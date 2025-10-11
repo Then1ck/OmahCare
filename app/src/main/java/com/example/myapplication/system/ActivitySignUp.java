@@ -220,5 +220,8 @@ public class ActivitySignUp extends AppCompatActivity {
     private void navigateToSignIn() {
         // TODO: Navigate to Sign In Activity
         Toast.makeText(this, "Navigate to Sign In screen", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(ActivitySignUp.this, ActivityLogIn.class);
+        startActivity(intent);
+        finish();
     }
 }
