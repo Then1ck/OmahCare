@@ -20,4 +20,21 @@
         <item name="android:padding">8dp</item>
     </style>
 
+    <style name="Title">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Back">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:src">@drawable/ic_back</item>
+        <item name="android:contentDescription">Back</item>
+        <item name="android:tint">#000000</item>
+    </style>
+
 </resources>

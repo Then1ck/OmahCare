@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.main_func.caregiver.CaregiverActivity;
 import com.example.myapplication.main_func.home_care.HomeCareActivity;
+import com.example.myapplication.main_func.shop.ProductDetailActivity;
 import com.example.myapplication.main_func.shop.ShopActivity;
 import com.example.myapplication.ui.home.banner.BannerAdapter;
 import com.example.myapplication.ui.home.products.Product;
@@ -294,6 +295,18 @@ public class HomeFragment extends Fragment {
                 // Set up adapter
                 productAdapter = new ProductAdapter(products);
                 recyclerView.setAdapter(productAdapter);
+
+                productAdapter.setOnItemClickListener(product -> {
+                    Intent intent = new Intent(getContext(), ProductDetailActivity.class);
+                    intent.putExtra("name", product.getName());
+                    intent.putExtra("price", product.getPrice());
+                    intent.putExtra("oldPrice", product.getOldPrice());
+                    intent.putExtra("discount", product.getDiscount());
+                    intent.putExtra("imageUrl", product.getImageUrl());
+                    intent.putExtra("rating", product.getRating());
+                    startActivity(intent);
+                });
+
             }
 
             @Override

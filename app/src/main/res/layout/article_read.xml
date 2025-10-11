@@ -4,47 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    android:layout_marginTop="@dimen/activity_top_margin">
 
     <!-- Top Bar (Fixed) -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/topBar"
+        android:id="@+id/top_bar"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:background="@android:color/white"
-        android:layout_marginTop="24dp">
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/backButton"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_back"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            style="@style/Back"/>
 
         <TextView
             android:id="@+id/articleHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Article"
-            android:textSize="24dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            style="@style/Title"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Scrollable Content -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/topBar"
-        android:fillViewport="true">
+        android:layout_below="@id/top_bar"
+        android:fillViewport="true"
+        android:layout_marginTop="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"

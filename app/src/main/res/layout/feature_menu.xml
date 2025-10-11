@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Caregiver"
-            android:textSize="12sp"
+            android:textSize="10sp"
             android:layout_marginTop="4dp"/>
     </LinearLayout>
 
@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Home Care"
-            android:textSize="12sp"
+            android:textSize="10sp"
             android:layout_marginTop="4dp"/>
     </LinearLayout>
 
@@ -76,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="OmahMart"
-            android:textSize="12sp"
+            android:textSize="10sp"
             android:layout_marginTop="4dp"/>
     </LinearLayout>
 
@@ -100,7 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="OmahRide"
-            android:textSize="12sp"
+            android:textSize="10sp"
             android:layout_marginTop="4dp"/>
     </LinearLayout>
     <!-- Repeat for Home Care, OmahMart, OmahRide -->

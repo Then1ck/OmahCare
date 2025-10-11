@@ -40,6 +40,13 @@ public class ProductDetailActivity extends AppCompatActivity {
     private DatabaseReference dbShop, dbProfile, dbSeller;
     private String productName;
 
+    // Seller views
+    private LinearLayout sellerLayout;
+    private ImageView sellerImage;
+    private TextView sellerNameTv, sellerCityTv;
+    private String sellerNameGlobal; // store seller name for passing to SellerActivity
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +61,12 @@ public class ProductDetailActivity extends AppCompatActivity {
         recyclerViewUlasan = findViewById(R.id.recyclerViewUlasan);
         recyclerViewUlasan.setLayoutManager(new androidx.recyclerview.widget.LinearLayoutManager(this));
         recyclerViewUlasan.setNestedScrollingEnabled(false);
+
+        sellerLayout = findViewById(R.id.seller);
+        sellerImage = sellerLayout.findViewById(R.id.seller_img); // assign correct ImageView ID
+        sellerNameTv = sellerLayout.findViewById(R.id.seller_name); // assign correct ID
+        sellerCityTv = sellerLayout.findViewById(R.id.seller_loc); // assign correct ID
+
 
         btnBack = findViewById(R.id.btn_back);
         btnBack.setOnClickListener(v -> finish());
@@ -205,8 +218,27 @@ public class ProductDetailActivity extends AppCompatActivity {
                 String sellerName = snapshot.child("name").getValue(String.class);
                 Double rating = snapshot.child("rating").getValue(Double.class);
                 String city = snapshot.child("kota").getValue(String.class);
+                String imgUrl = snapshot.child("img").getValue(String.class);
 
-                Log.d("ProductDetail", "Seller: " + sellerName + ", " + city + ", rating " + rating);
+                if (sellerName != null) {
+                    sellerNameTv.setText(sellerName);
+                    sellerCityTv.setText(city != null ? city : "-");
+                    sellerNameGlobal = sellerName; // store globally for intent
+
+                    if (imgUrl != null && !imgUrl.isEmpty()) {
+                        Glide.with(ProductDetailActivity.this)
+                                .load(imgUrl)
+                                .placeholder(R.drawable.ic_caregiver)
+                                .into(sellerImage);
+                    }
+
+                    // Make the seller layout clickable
+                    sellerLayout.setOnClickListener(v -> {
+                        Intent intent = new Intent(ProductDetailActivity.this, SellerActivity.class);
+                        intent.putExtra("seller_name", sellerNameGlobal);
+                        startActivity(intent);
+                    });
+                }
             }
 
             @Override
@@ -215,4 +247,5 @@ public class ProductDetailActivity extends AppCompatActivity {
             }
         });
     }
+
 }

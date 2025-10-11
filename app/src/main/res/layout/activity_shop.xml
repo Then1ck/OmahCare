@@ -7,7 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".main_func.shop.ShopActivity">
+    tools:context=".main_func.shop.ShopActivity"
+    android:layout_marginTop="@dimen/activity_top_margin">
 
     <!-- Scrollable Content -->
     <ScrollView
@@ -27,14 +28,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp"
-            android:layout_marginTop="60dp">
+            android:padding="16dp">
 
             <ImageView
                 android:id="@+id/btn_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_back" />
+                style="@style/Back"/>
 
             <!-- Product Image -->
             <ImageView
@@ -131,6 +129,7 @@
                 android:background="@drawable/bg_rounded"
                 android:padding="16dp">
                 <ImageView
+                    android:id="@+id/seller_img"
                     android:layout_width="68dp"
                     android:layout_height="68dp"
                     android:src="@drawable/ic_caregiver"
@@ -142,11 +141,13 @@
                     android:layout_marginTop="10dp"
                     android:orientation="vertical">
                     <TextView
+                        android:id="@+id/seller_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Toko Jaya Makmur"
                         android:textColor="@color/black"/>
                     <TextView
+                        android:id="@+id/seller_loc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Kota Jakarta"/>

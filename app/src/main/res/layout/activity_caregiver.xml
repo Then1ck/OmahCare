@@ -7,34 +7,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:layout_marginTop="48dp">
+    android:layout_marginTop="@dimen/activity_top_margin">
+<!--    android:layout_marginTop="48dp"-->
 
-    <!-- Back arrow -->
-    <ImageView
-        android:id="@+id/back_button"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="16dp"
-        android:src="@drawable/ic_back"
-        android:contentDescription="Back"
-        app:tint="#000000"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <!-- Title -->
-    <TextView
-        android:id="@+id/title_text"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Daftar Keluarga"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        app:layout_constraintTop_toTopOf="@id/back_button"
-        app:layout_constraintBottom_toBottomOf="@id/back_button"
-        app:layout_constraintStart_toEndOf="@id/back_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.45" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <!-- Back arrow -->
+        <ImageView
+            android:id="@+id/back_button"
+            style="@style/Back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- Title -->
+        <TextView
+            android:id="@+id/title_text"
+            style="@style/Title"
+            android:text="Daftar Keluarga"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <!-- RecyclerView for family list -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/familyRecyclerView"
@@ -42,11 +42,12 @@
         android:layout_height="0dp"
         android:paddingHorizontal="15dp"
         android:clipToPadding="false"
-        app:layout_constraintTop_toBottomOf="@id/back_button"
+        app:layout_constraintTop_toBottomOf="@id/top_bar"
         app:layout_constraintBottom_toTopOf="@id/bottom_bar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:listitem="@layout/item_family_member"/>
+        tools:listitem="@layout/item_family_member"
+        android:layout_marginTop="16dp"/>
 
     <!-- Bottom bar -->
     <LinearLayout

@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".main_func.shop.OrderActivity">
+    tools:context=".main_func.shop.OrderActivity"
+    android:layout_marginTop="@dimen/activity_top_margin">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,32 +17,33 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:layout_marginTop="60dp">
+            android:padding="16dp">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
             <!-- Back button -->
             <ImageView
                 android:id="@+id/btnBack"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_back"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="8dp" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                style="@style/Back"/>
 
             <!-- Title -->
             <TextView
                 android:id="@+id/tvCheckout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="Checkout"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/black"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/btnBack"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                style="@style/Title"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!-- Address Label -->
             <TextView
@@ -51,7 +54,7 @@
                 android:textColor="#5e89e5"
                 android:textSize="12sp"
                 android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@id/tvCheckout"
+                app:layout_constraintTop_toBottomOf="@id/top_bar"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <!-- Address Value -->

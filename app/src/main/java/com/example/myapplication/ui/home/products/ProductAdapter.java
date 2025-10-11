@@ -17,16 +17,25 @@ import java.util.List;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
     private final List<Product> productList;
+    private OnItemClickListener listener;
 
-    public ProductAdapter(@NonNull List<Product> productList) {
+    public interface OnItemClickListener {
+        void onItemClick(Product product);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    public ProductAdapter(List<Product> productList) {
         this.productList = productList;
     }
 
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.item_product_card, parent, false);
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_product_card, parent, false);
         return new ProductViewHolder(view);
     }
 
@@ -39,25 +48,26 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.oldPrice.setText(product.getOldPrice());
         holder.discount.setText(product.getDiscount());
 
-        // ✅ Use Glide to load product image with placeholders
         Glide.with(holder.itemView.getContext())
                 .load(product.getImageUrl())
-                .placeholder(R.drawable.ic_caregiver) // shown while loading
-                .error(R.drawable.ic_dashboard_black_24dp) // shown on failure
+                .placeholder(R.drawable.ic_caregiver)
                 .centerCrop()
                 .into(holder.image);
+
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onItemClick(product);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return productList != null ? productList.size() : 0;
+        return productList.size();
     }
 
     static class ProductViewHolder extends RecyclerView.ViewHolder {
-        final TextView title;
-        final TextView price;
-        final TextView oldPrice;
-        final TextView discount;
+        final TextView title, price, oldPrice, discount;
         final ImageView image;
 
         public ProductViewHolder(@NonNull View itemView) {

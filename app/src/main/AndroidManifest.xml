@@ -84,6 +84,9 @@
         <activity
             android:name=".main_func.shop.CheckoutActivity"
             android:exported="true"/>
+        <activity
+            android:name=".main_func.shop.SellerActivity"
+            android:exported="true"/>
 
     </application>
 

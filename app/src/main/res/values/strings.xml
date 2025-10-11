@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">OmahCare</string>
     <string name="title_home">Home</string>
     <string name="title_article">Article</string>
     <string name="title_activity">Activity</string>
