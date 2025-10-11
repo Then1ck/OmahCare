@@ -54,6 +54,7 @@
         app:layout_constraintTop_toBottomOf="@id/topBar">
 
         <LinearLayout
+            android:id="@+id/locations"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -101,6 +102,14 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvResults"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/btnConfirmRide"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardRide" />
     <!-- Confirm Button -->
     <Button
         android:id="@+id/btnConfirmRide"

@@ -103,7 +103,13 @@
             android:name=".system.ChatActivity"
             android:exported="true"/>
         <activity
+            android:name=".system.ChatRiderActivity"
+            android:exported="true"/>
+        <activity
             android:name=".main_func.omah_ride.OmahRideActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".main_func.omah_ride.TargetLocationActivity"
             android:exported="true"/>
 
         <meta-data

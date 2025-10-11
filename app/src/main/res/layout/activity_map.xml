@@ -3,7 +3,9 @@
     xmlns:map="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    xmlns:app="http://schemas.android.com/tools"
+    android:background="#FFFFFF"
+    app:ignore="NamespaceTypo">
 
     <!-- MAP BACKGROUND -->
     <com.google.android.gms.maps.MapView
@@ -24,12 +26,14 @@
         android:layout_gravity="top|center_horizontal">
 
         <LinearLayout
+            android:id="@+id/locations"
             android:orientation="vertical"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/curLoc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Universitas Gadjah Mada"
@@ -43,6 +47,7 @@
                 android:layout_marginVertical="4dp" />
 
             <TextView
+                android:id="@+id/targetLoc"
                 android:text="Catur Tunggal"
                 android:textColor="#646363"
                 android:textSize="12sp"
@@ -62,115 +67,258 @@
             android:layout_height="wrap_content"/>
     </LinearLayout>
 
-    <!-- BOTTOM CARD -->
-    <LinearLayout
+    <!-- BOTTOM PANEL CONTAINER -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomContainer"
         android:layout_gravity="bottom"
-        android:orientation="vertical"
-        android:background="@color/white"
-        android:padding="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="10dp">
+        android:layout_height="wrap_content">
 
+        <!-- MAIN OMAHRIDE BOTTOM CARD -->
         <LinearLayout
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
+            android:id="@+id/bottomMain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="1">
-
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:backgroundTint="#5E89E5"
-                android:src="@drawable/ic_omah_ride"/>
+            android:background="@color/white"
+            android:elevation="10dp"
+            android:orientation="vertical"
+            android:padding="16dp"
+            map:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="visible">
 
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:paddingStart="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="OmahRide"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="#2F2828" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="9 - 12 mins"
-                    android:textColor="#646363"
-                    android:textSize="14sp" />
-            </LinearLayout>
-
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="Rp18.000"
-                android:textColor="#2F2828"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal"
-            android:padding="12dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTintMode="src_in"
-            android:clipToOutline="true"
-            android:background="@drawable/bg_rounded_button">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:backgroundTint="#5E89E5"
+                    android:src="@drawable/ic_omah_ride" />
 
                 <LinearLayout
-                    android:id="@+id/linearLayout"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="vertical"
-                    map:layout_constraintBottom_toBottomOf="parent"
-                    map:layout_constraintStart_toStartOf="parent"
-                    map:layout_constraintTop_toTopOf="parent">
+                    android:paddingStart="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pesan OmahRide"
-                        android:textColor="#FFFFFF"
-                        android:textSize="14sp"
+                        android:text="OmahRide"
+                        android:textColor="#2F2828"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Nikmati perjalanan mu"
-                        android:textColor="#F6F6F6"
-                        android:textSize="12sp" />
+                        android:text="9 - 12 mins"
+                        android:textColor="#646363"
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Rp18.000"
-                    android:textColor="#FFFFFF"
+                    android:textColor="#2F2828"
                     android:textSize="16sp"
-                    android:textStyle="bold"
-                    map:layout_constraintBottom_toBottomOf="parent"
-                    map:layout_constraintEnd_toEndOf="parent"
-                    map:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:textStyle="bold" />
+            </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/llPesanOmahRide"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_rounded_button"
+                android:clipToOutline="true"
+                android:orientation="horizontal"
+                android:padding="12dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        map:layout_constraintBottom_toBottomOf="parent"
+                        map:layout_constraintStart_toStartOf="parent"
+                        map:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pesan OmahRide"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nikmati perjalanan mu"
+                            android:textColor="#F6F6F6"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rp18.000"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        map:layout_constraintBottom_toBottomOf="parent"
+                        map:layout_constraintEnd_toEndOf="parent"
+                        map:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+
+        <!-- CONFIRMATION PANEL (HIDDEN BY DEFAULT) -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bottomConfirmation"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@android:color/white"
+            android:padding="16dp"
+            android:paddingBottom="0dp"
+            map:layout_constraintBottom_toBottomOf="parent"
+            map:layout_constraintEnd_toEndOf="parent"
+            map:layout_constraintStart_toStartOf="parent"
+            android:visibility="gone">
+
+            <!-- Driver image (Ellipse) -->
+            <ImageView
+                android:id="@+id/driver_image"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:background="@drawable/bg_rounded"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_caregiver"
+                app:layout_constraintStart_toStartOf="parent"
+                map:layout_constraintBottom_toTopOf="@+id/location_button"
+                map:layout_constraintStart_toStartOf="parent"
+                map:layout_constraintTop_toBottomOf="@+id/label_driver" />
+
+            <!-- "Pengemudi Anda" -->
+            <TextView
+                android:id="@+id/label_driver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pengemudi Anda"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                map:layout_constraintStart_toStartOf="parent"
+                map:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Driver name and car -->
+            <TextView
+                android:id="@+id/driver_name_car"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Zaire George • Toyota"
+                android:layout_marginLeft="16dp"
+                android:textColor="#838282"
+                android:textSize="14sp"
+                app:layout_constraintStart_toBottomOf="@id/vehicle_number"
+                map:layout_constraintStart_toEndOf="@+id/driver_image"
+                map:layout_constraintTop_toBottomOf="@+id/vehicle_number" />
+
+            <!-- Vehicle number -->
+            <TextView
+                android:id="@+id/vehicle_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="16dp"
+                android:text="B 1403 XYZ"
+                android:textSize="14sp"
+                app:layout_constraintTop_toTopOf="parent"
+                map:layout_constraintStart_toEndOf="@+id/driver_image"
+                map:layout_constraintTop_toBottomOf="@+id/label_driver" />
+
+            <!-- Bottom white rectangle (button-like) -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/location_button"
+                android:layout_width="0dp"
+                android:layout_height="38dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_editor_absoluteX="16dp"
+                map:layout_constraintBottom_toBottomOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
+
+                    <TextView
+                        android:id="@+id/location_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Bicara dengan pengemudi-mu..."
+                        android:textColor="#70000000"
+                        android:textSize="12sp" />
+
+                    <ImageView
+                        android:id="@+id/location_arrow"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:src="@drawable/ic_back"
+                        app:tint="#5e89e5" />
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--        <LinearLayout-->
+<!--            android:id="@+id/bottomConfirmation"-->
+<!--            android:orientation="vertical"-->
+<!--            android:background="@color/white"-->
+<!--            android:padding="16dp"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:elevation="10dp"-->
+<!--            android:visibility="gone">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Ride Confirmed!"-->
+<!--                android:textSize="18sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textColor="#2F2828" />-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Driver is on the way"-->
+<!--                android:textSize="14sp"-->
+<!--                android:textColor="#646363"-->
+<!--                android:layout_marginTop="4dp"/>-->
+<!--        </LinearLayout>-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
