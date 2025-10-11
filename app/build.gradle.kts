@@ -46,6 +46,7 @@ dependencies {
     implementation(libs.navigation.ui)
     implementation(libs.firebase.database)
     implementation(libs.firebase.auth)
+    implementation(libs.play.services.maps)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -62,5 +63,14 @@ dependencies {
 
     // Google Sign-In for Firebase
     implementation ("com.google.android.gms:play-services-auth:21.2.0")
+
+    implementation ("org.osmdroid:osmdroid-android:6.1.18")
+
+    implementation ("com.google.android.gms:play-services-location:21.0.1")
+
+    implementation ("com.google.android.gms:play-services-maps:18.3.0")
+    implementation ("com.google.android.gms:play-services-location:21.0.1")
+
+
 
 }

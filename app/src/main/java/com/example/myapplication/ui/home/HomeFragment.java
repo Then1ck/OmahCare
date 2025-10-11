@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.main_func.caregiver.CaregiverActivity;
 import com.example.myapplication.main_func.home_care.HomeCareActivity;
+import com.example.myapplication.main_func.omah_ride.OmahRideActivity;
 import com.example.myapplication.main_func.shop.ProductDetailActivity;
 import com.example.myapplication.main_func.shop.ShopActivity;
 import com.example.myapplication.ui.home.banner.BannerAdapter;
@@ -109,6 +110,12 @@ public class HomeFragment extends Fragment {
         View omahMartButton = root.findViewById(R.id.omahmart);
         omahMartButton.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), ShopActivity.class);
+            startActivity(intent);
+        });
+
+        View omahRideButton = root.findViewById(R.id.omahride);
+        omahRideButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), OmahRideActivity.class);
             startActivity(intent);
         });
 
