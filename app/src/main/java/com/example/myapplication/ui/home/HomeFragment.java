@@ -9,7 +9,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -24,9 +26,12 @@ import com.example.myapplication.main_func.home_care.HomeCareActivity;
 import com.example.myapplication.main_func.omah_ride.OmahRideActivity;
 import com.example.myapplication.main_func.shop.ProductDetailActivity;
 import com.example.myapplication.main_func.shop.ShopActivity;
+import com.example.myapplication.misc.SaldoActivity;
 import com.example.myapplication.ui.home.banner.BannerAdapter;
 import com.example.myapplication.ui.home.products.Product;
 import com.example.myapplication.ui.home.products.ProductAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -48,6 +53,7 @@ public class HomeFragment extends Fragment {
     private ProductAdapter productAdapter;
     private ViewPager2 bannerCarousel;
     private BannerAdapter bannerAdapter;
+    private Button isiSaldo;
     private final List<String> bannerUrls = new ArrayList<>();
 
     // 🔹 Auto-scroll handler
@@ -58,6 +64,55 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+
+        TextView tvTotalSaldo = root.findViewById(R.id.tv_total_saldo);
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser == null) {
+            // User not logged in
+            tvTotalSaldo.setText("Rp 0");
+            return root; // or handle appropriately
+        }
+
+        String userEmail = currentUser.getEmail();
+
+        DatabaseReference profileRef = FirebaseDatabase.getInstance().getReference("profile");
+
+        profileRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                    String email = userSnapshot.child("email").getValue(String.class);
+                    if (email != null && email.equals(userEmail)) {
+                        // Found the logged-in user
+                        Double money = userSnapshot.child("money").getValue(Double.class);
+                        if (money != null) {
+                            String formattedMoney = String.format("Rp %, .0f", money);
+                            tvTotalSaldo.setText(formattedMoney);
+                        } else {
+                            tvTotalSaldo.setText("Rp 0");
+                        }
+                        return; // stop iterating once found
+                    }
+                }
+
+                // If not found
+                tvTotalSaldo.setText("Rp 0");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                tvTotalSaldo.setText("Rp 0");
+                Log.e("HomeFragment", "Failed to load user profile: " + error.getMessage());
+            }
+        });
+
+
+        isiSaldo = root.findViewById(R.id.isi_saldo);
+        isiSaldo.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), SaldoActivity.class);
+            startActivity(intent);
+        });
 
         // 🔹 Banner carousel
         bannerCarousel = root.findViewById(R.id.banner_carousel);
