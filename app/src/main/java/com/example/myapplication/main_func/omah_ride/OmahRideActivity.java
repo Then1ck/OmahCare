@@ -92,7 +92,6 @@ public class OmahRideActivity extends AppCompatActivity implements OnMapReadyCal
         }
 
         mapView = findViewById(R.id.Map);
-        btnTambah = findViewById(R.id.btnTambah);
         curLoc = findViewById(R.id.curLoc);
         targetLoc = findViewById(R.id.targetLoc);
         driverImage = findViewById(R.id.driver_image);
@@ -109,10 +108,6 @@ public class OmahRideActivity extends AppCompatActivity implements OnMapReadyCal
 
         curLoc.setOnClickListener(v -> openLocationActivity("current", curLoc.getText().toString(), curLatLon));
         targetLoc.setOnClickListener(v -> openLocationActivity("target", targetLoc.getText().toString(), targetLatLon));
-
-        btnTambah.setOnClickListener(v ->
-                Toast.makeText(this, "Tambah lokasi ditekan!", Toast.LENGTH_SHORT).show()
-        );
 
         checkPermissionsAndStartLocation();
 
