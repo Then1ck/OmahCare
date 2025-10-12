@@ -49,19 +49,19 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/cat_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="All"
                 android:background="@drawable/bg_rounded"
                 android:textColor="#FFFFFF"
-                app:backgroundTint="@color/blue"
+                app:backgroundTint="#5E89E5"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="8dp"
                 android:layout_marginEnd="8dp"/>
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/cat_caregiver"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
                 android:paddingVertical="8dp"
                 android:layout_marginEnd="8dp"/>
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/cat_homecare"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
                 android:paddingVertical="8dp"
                 android:layout_marginEnd="8dp"/>
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/cat_omahmart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

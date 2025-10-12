@@ -112,7 +112,7 @@
         app:layout_constraintEnd_toEndOf="@id/password_container" />
 
     <!-- Sign In Button -->
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/sign_in_button"
         android:layout_width="0dp"
         android:layout_height="55dp"
@@ -126,7 +126,8 @@
         android:textColor="@android:color/white"
         app:layout_constraintTop_toBottomOf="@id/forgot_password"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="#5E89E5"/>
 
     <!-- OR Divider -->
     <LinearLayout
@@ -164,7 +165,7 @@
     </LinearLayout>
 
     <!-- Google Sign In Button -->
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/google_sign_in_button"
         android:layout_width="0dp"
         android:layout_height="55dp"
@@ -178,7 +179,8 @@
         android:textColor="@android:color/white"
         app:layout_constraintTop_toBottomOf="@id/or_divider"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="#5E89E5"/>
 
     <!-- Bottom Sign Up -->
     <LinearLayout

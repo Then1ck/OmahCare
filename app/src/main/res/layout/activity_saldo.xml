@@ -95,10 +95,10 @@
         android:layout_marginStart="16dp"/>
 
     <!-- Isi Saldo Button -->
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnIsiSaldo"
         android:layout_width="wrap_content"
-        android:layout_height="36dp"
+        android:layout_height="48dp"
         android:text="+ Isi Saldo"
         android:backgroundTint="#5E89E5"
         android:textColor="#FFFFFF"

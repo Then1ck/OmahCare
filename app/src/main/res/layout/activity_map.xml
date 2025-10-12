@@ -55,16 +55,6 @@
                 android:layout_width="match_parent"/>
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btnTambah"
-            android:text="Tambah"
-            android:textColor="#646363"
-            android:textSize="10sp"
-            android:background="@drawable/bg_rounded"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="6dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
     </LinearLayout>
 
     <!-- BOTTOM PANEL CONTAINER -->
