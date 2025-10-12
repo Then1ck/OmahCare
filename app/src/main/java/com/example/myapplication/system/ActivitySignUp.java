@@ -134,18 +134,29 @@ public class ActivitySignUp extends AppCompatActivity {
                                     .addOnCompleteListener(profileTask -> {
                                         if (profileTask.isSuccessful()) {
                                             writeUserProfile(fullname, email);
-                                            Toast.makeText(ActivitySignUp.this, "Sign Up Successful!", Toast.LENGTH_SHORT).show();
-                                            startHomeActivity();
                                         } else {
-                                            Toast.makeText(ActivitySignUp.this, "Profile update failed: " + profileTask.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(ActivitySignUp.this,
+                                                    "Profile update failed: " + profileTask.getException().getMessage(),
+                                                    Toast.LENGTH_SHORT).show();
                                         }
                                     });
                         }
                     } else {
-                        Toast.makeText(ActivitySignUp.this, "Sign Up Failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        // ✅ Handle specific FirebaseAuth exceptions
+                        Exception exception = task.getException();
+                        if (exception != null) {
+                            String message;
+                            if (exception instanceof com.google.firebase.auth.FirebaseAuthUserCollisionException) {
+                                message = "This email is already registered. Please log in instead.";
+                            } else {
+                                message = "Sign Up Failed: " + exception.getMessage();
+                            }
+                            Toast.makeText(ActivitySignUp.this, message, Toast.LENGTH_LONG).show();
+                        }
                     }
                 });
     }
+
 
 
 //    private void handleGoogleSignUp() {
@@ -191,6 +202,7 @@ public class ActivitySignUp extends AppCompatActivity {
 
                 DatabaseReference newUserRef = databaseRef.child(userId);
                 newUserRef.child("name").setValue(fullname);
+                newUserRef.child("money").setValue(10000000);
                 newUserRef.child("email").setValue(email)
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {

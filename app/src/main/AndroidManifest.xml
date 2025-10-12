@@ -120,6 +120,9 @@
         <activity
             android:name=".misc.TopUpActivity"
             android:exported="true"/>
+        <activity
+            android:name=".misc.BankingActivity"
+            android:exported="true"/>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDaw6lqFuAddcJmAzaTi4mIou1TVF0PIhk" />

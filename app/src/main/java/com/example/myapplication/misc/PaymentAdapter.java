@@ -15,32 +15,39 @@ import com.example.myapplication.R;
 
 import java.util.List;
 
-public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.PaymentViewHolder> {
+public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.ViewHolder> {
 
     private Context context;
     private List<PaymentMethod> paymentMethods;
+    private OnItemClickListener listener;
 
-    public PaymentAdapter(Context context, List<PaymentMethod> paymentMethods) {
+    public interface OnItemClickListener {
+        void onItemClick(PaymentMethod method);
+    }
+
+    public PaymentAdapter(Context context, List<PaymentMethod> paymentMethods, OnItemClickListener listener) {
         this.context = context;
         this.paymentMethods = paymentMethods;
+        this.listener = listener;
     }
 
     @NonNull
     @Override
-    public PaymentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PaymentAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_payment_method, parent, false);
-        return new PaymentViewHolder(view);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PaymentViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PaymentAdapter.ViewHolder holder, int position) {
         PaymentMethod method = paymentMethods.get(position);
-        holder.name.setText(method.getName());
 
-        Glide.with(context)
-                .load(method.getImgUrl())
-                .placeholder(R.drawable.ic_home_black_24dp)
-                .into(holder.logo);
+        holder.tvName.setText(method.getName());
+        Glide.with(context).load(method.getImgUrl()).into(holder.ivLogo);
+
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) listener.onItemClick(method);
+        });
     }
 
     @Override
@@ -48,14 +55,14 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentAdapter.PaymentV
         return paymentMethods.size();
     }
 
-    static class PaymentViewHolder extends RecyclerView.ViewHolder {
-        ImageView logo;
-        TextView name;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView ivLogo;
+        TextView tvName;
 
-        public PaymentViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            logo = itemView.findViewById(R.id.img_payment);
-            name = itemView.findViewById(R.id.tv_payment_name);
+            ivLogo = itemView.findViewById(R.id.img_payment);
+            tvName = itemView.findViewById(R.id.tv_payment_name);
         }
     }
 }

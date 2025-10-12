@@ -21,7 +21,7 @@
             android:id="@+id/profile_image"
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:background="@drawable/bg_rounded_button"
+            android:background="@drawable/bg_rounded"
             android:src="@drawable/ic_caregiver"
             android:scaleType="centerInside"
             android:padding="10dp" />
@@ -57,7 +57,7 @@
             android:id="@+id/more_options"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/ic_home_black_24dp"
+            android:src="@drawable/ic_dots"
             app:tint="#000000" />
     </LinearLayout>
 

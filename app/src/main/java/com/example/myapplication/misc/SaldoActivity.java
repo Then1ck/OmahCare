@@ -3,6 +3,7 @@ package com.example.myapplication.misc;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ public class SaldoActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference dbRef;
     private Button isiSaldo;
+    private ImageView btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,9 @@ public class SaldoActivity extends AppCompatActivity {
             Intent intent = new Intent(SaldoActivity.this, TopUpActivity.class);
             startActivity(intent);
         });
+
+        btnBack = findViewById(R.id.ivBack);
+        btnBack.setOnClickListener(v -> finish());
 
         // Initialize Firebase
         mAuth = FirebaseAuth.getInstance();

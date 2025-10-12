@@ -2,9 +2,9 @@ package com.example.myapplication.misc;
 
 public class PaymentMethod {
     private String name;
-    private String imgUrl; // now a URL
+    private String imgUrl;
 
-    public PaymentMethod() {} // Required for Firebase
+    public PaymentMethod() {}
 
     public PaymentMethod(String name, String imgUrl) {
         this.name = name;

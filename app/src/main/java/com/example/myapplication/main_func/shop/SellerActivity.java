@@ -1,6 +1,8 @@
 package com.example.myapplication.main_func.shop;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +34,11 @@ public class SellerActivity extends AppCompatActivity {
     private RecyclerView recyclerProducts;
     private List<Product> productList;
     private ProductAdapter productAdapter;
+    private ImageButton btnChat;
 
+    // For ChatActivity intent
+    private String currentSellerKey;
+    private String sellerNameGlobal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +50,9 @@ public class SellerActivity extends AppCompatActivity {
         sellerName = findViewById(R.id.shop_name);
         sellerKota = findViewById(R.id.shop_location);
         sellerRating = findViewById(R.id.shop_rating);
-
         btnBack = findViewById(R.id.imageView4);
+        btnChat = findViewById(R.id.btn_favorite);
+
         btnBack.setOnClickListener(v -> finish());
 
         recyclerProducts = findViewById(R.id.recycler_products);
@@ -53,7 +60,6 @@ public class SellerActivity extends AppCompatActivity {
         productAdapter = new ProductAdapter(productList);
         recyclerProducts.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerProducts.setAdapter(productAdapter);
-
 
         // Get seller name from Intent
         String sellerNameInput = getIntent().getStringExtra("seller_name");
@@ -63,10 +69,9 @@ public class SellerActivity extends AppCompatActivity {
             return;
         }
 
-        // Reference to Firebase
+        // Firebase reference
         DatabaseReference sellerRef = FirebaseDatabase.getInstance().getReference("seller");
 
-        // Search for the seller by name
         sellerRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -76,7 +81,11 @@ public class SellerActivity extends AppCompatActivity {
                     String name = child.child("name").getValue(String.class);
 
                     if (name != null && name.equalsIgnoreCase(sellerNameInput)) {
-                        // Seller info
+                        // ✅ Save seller ID and name for ChatActivity
+                        currentSellerKey = child.getKey();
+                        sellerNameGlobal = name;
+
+                        // Load seller info
                         String imgUrl = child.child("img").getValue(String.class);
                         String kota = child.child("kota").getValue(String.class);
                         Double rating = child.child("rating").getValue(Double.class);
@@ -89,7 +98,7 @@ public class SellerActivity extends AppCompatActivity {
                             Glide.with(SellerActivity.this).load(imgUrl).into(sellerImage);
                         }
 
-                        // Fetch seller products
+                        // Load seller products
                         DataSnapshot itemsSnap = child.child("item");
                         if (itemsSnap.exists()) {
                             for (DataSnapshot itemRefSnap : itemsSnap.getChildren()) {
@@ -121,7 +130,7 @@ public class SellerActivity extends AppCompatActivity {
                                                         discountPercent > 0 ? "Rp " + nf.format(oldPrice) : "",
                                                         discountPercent > 0 ? discountPercent + "%" : "",
                                                         img != null ? img : "",
-                                                        0f // rating placeholder
+                                                        0f
                                                 );
 
                                                 productList.add(product);
@@ -139,20 +148,35 @@ public class SellerActivity extends AppCompatActivity {
                         }
 
                         found = true;
-                        break; // Seller found, stop looping
+                        break;
                     }
                 }
 
                 if (!found) {
                     Toast.makeText(SellerActivity.this, "Seller not found!", Toast.LENGTH_SHORT).show();
                     finish();
+                } else {
+                    // ✅ Set up chat button once seller data loaded
+                    setupChatButton();
                 }
             }
-
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(SellerActivity.this, "Firebase error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void setupChatButton() {
+        btnChat.setOnClickListener(v -> {
+            if (sellerNameGlobal != null && currentSellerKey != null) {
+                Intent intent = new Intent(SellerActivity.this, com.example.myapplication.system.ChatActivity.class);
+                intent.putExtra("chat_with_name", sellerNameGlobal);
+                intent.putExtra("chat_with_id", currentSellerKey);
+                startActivity(intent);
+            } else {
+                Toast.makeText(SellerActivity.this, "Seller info not available yet!", Toast.LENGTH_SHORT).show();
             }
         });
     }

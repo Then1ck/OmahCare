@@ -56,7 +56,6 @@ public class HomeCareActivity extends AppCompatActivity {
 
         loadFamilyDataForCurrentUser();
 
-        // ✅ when clicking an existing member — open edit mode
         // Normal click → CaregiverDurationActivity
         adapter.setOnItemClickListener(member -> {
             Intent intent = new Intent(HomeCareActivity.this, HomeCareDurationActivity.class);

@@ -84,7 +84,7 @@
             android:orientation="vertical"
             android:padding="16dp"
             map:layout_constraintBottom_toBottomOf="parent"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -197,7 +197,7 @@
             map:layout_constraintBottom_toBottomOf="parent"
             map:layout_constraintEnd_toEndOf="parent"
             map:layout_constraintStart_toStartOf="parent"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <!-- Driver image (Ellipse) -->
             <ImageView
@@ -242,27 +242,28 @@
                 android:id="@+id/vehicle_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
                 android:layout_marginLeft="16dp"
                 android:text="B 1403 XYZ"
                 android:textSize="14sp"
                 app:layout_constraintTop_toTopOf="parent"
+                map:layout_constraintBottom_toTopOf="@+id/location_button"
                 map:layout_constraintStart_toEndOf="@+id/driver_image"
-                map:layout_constraintTop_toBottomOf="@+id/label_driver" />
+                map:layout_constraintTop_toTopOf="parent" />
 
             <!-- Bottom white rectangle (button-like) -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/location_button"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="38dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_editor_absoluteX="16dp"
-                map:layout_constraintBottom_toBottomOf="parent">
+                map:layout_constraintBottom_toBottomOf="parent"
+                map:layout_constraintEnd_toEndOf="parent"
+                map:layout_constraintStart_toStartOf="parent">
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
@@ -277,15 +278,21 @@
                         android:layout_weight="1"
                         android:text="Bicara dengan pengemudi-mu..."
                         android:textColor="#70000000"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        map:layout_constraintBottom_toBottomOf="parent"
+                        map:layout_constraintStart_toStartOf="parent"
+                        map:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
                         android:id="@+id/location_arrow"
                         android:layout_width="22dp"
                         android:layout_height="22dp"
                         android:src="@drawable/ic_back"
-                        app:tint="#5e89e5" />
-                </LinearLayout>
+                        app:tint="#5e89e5"
+                        map:layout_constraintBottom_toBottomOf="parent"
+                        map:layout_constraintEnd_toEndOf="parent"
+                        map:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
 
